@@ -1,1 +1,39 @@
-<p>signup works!</p>
+<form [formGroup]="authForm" (ngSubmit)="onSubmit()" class="singup">
+  <mat-form-field class="authForm">
+    <mat-label>Prénom</mat-label>
+    <input matInput placeholder="Ex: Adrian" formControlName="firstName">
+    @if (authForm.hasError('required', 'firstName')) {
+      <mat-error>Le prénom est requis.</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field class="authForm">
+    <mat-label>Nom</mat-label>
+    <input matInput placeholder="Ex: Jimenez" formControlName="lastName">
+    @if (authForm.hasError('required', 'lastName')) {
+      <mat-error>Le nom de famille est requis.</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field class="authForm">
+    <mat-label>Email</mat-label>
+    <input matInput placeholder="Ex: Adrianjimenez@gmail.com" formControlName="email">
+    @if (authForm.hasError('email', 'email')) {
+      <mat-error>Le mail doit être valide.</mat-error>
+    } @else if (authForm.hasError('required', 'email')) {
+      <mat-error>Le mail est requis.</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field class="authForm">
+    <mat-label>Mot de passe</mat-label>
+    <input matInput formControlName="password">
+    @if (authForm.hasError('required', 'password')) {
+      <mat-error>Le mot de passe est requis.</mat-error>
+    }
+  </mat-form-field>
+
+  <div class = "buttonForm">
+    <button mat-flat-button type = "submit" [disabled] = "!authForm.valid">S'inscrire</button>
+  </div>
+</form>
