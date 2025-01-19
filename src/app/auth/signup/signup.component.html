@@ -27,11 +27,13 @@
 
   <mat-form-field class="authForm">
     <mat-label>Mot de passe</mat-label>
-    <input matInput formControlName="password">
-    @if (authForm.hasError('required', 'password')) {
-      <mat-error>Le mot de passe est requis.</mat-error>
-    }
+    <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password">
+    <button mat-icon-button matSuffix (click)="togglePasswordVisibility()" type="button" aria-label="Afficher ou masquer le mot de passe">
+      <mat-icon>{{ hidePassword ? 'visibility' : 'visibility_off' }}</mat-icon>
+    </button>
+    <mat-error *ngIf="authForm.get('password')?.hasError('required')">Le mot de passe est requis.</mat-error>
   </mat-form-field>
+
 
   <div class = "buttonForm">
     <button mat-flat-button type = "submit" [disabled] = "!authForm.valid">S'inscrire</button>

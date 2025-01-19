@@ -1,1 +1,25 @@
-<p>login works!</p>
+<form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="login-form">
+  <mat-form-field class="authForm">
+    <mat-label>Email</mat-label>
+    <input matInput placeholder="Ex: Adrianjimenez@gmail.com" formControlName="email">
+    @if (loginForm.hasError('email', 'email')) {
+      <mat-error>Le mail doit être valide.</mat-error>
+    } @else if (loginForm.hasError('required', 'email')) {
+      <mat-error>Le mail est requis.</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field class="authForm">
+    <mat-label>Mot de passe</mat-label>
+    <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password">
+    <button mat-icon-button matSuffix (click)="togglePasswordVisibility()" type="button" aria-label="Afficher ou masquer le mot de passe">
+      <mat-icon>{{ hidePassword ? 'visibility' : 'visibility_off' }}</mat-icon>
+    </button>
+    <mat-error *ngIf="loginForm.get('password')?.hasError('required')">Le mot de passe est requis.</mat-error>
+  </mat-form-field>
+
+
+  <div class="buttonForm">
+    <button mat-flat-button type="submit" [disabled]="!loginForm.valid">Se connecter</button>
+  </div>
+</form>
