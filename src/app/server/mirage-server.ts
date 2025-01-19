@@ -1,12 +1,17 @@
-import {createServer, Response} from 'miragejs';
+import {createServer, Model, Response} from 'miragejs';
 
 export function makeServer() {
   createServer({
+    models: {
+      users: Model,
+      leaderboard: Model,
+      achievement: Model,
+    },
     seeds(server) {
       // Ajouter un utilisateur par défaut pour la connexion
       server.db.loadData({
         users: [
-          {email: 'adrian@jimenez.com', password: 'adrianjimenez'},
+          {firstName: 'Adrian', lastName: 'Jimenez', email: 'adrian@jimenez.com', password: 'adrianjimenez'},
         ],
       });
     },
@@ -23,9 +28,24 @@ export function makeServer() {
           return new Response(400, {}, { error: 'Cet email est déjà utilisé.' });
         }
 
-        // Ajout de l'utilisateur à la base simulée
+        // Ajout des données par défaut pour le leaderboard et les achievements
+        const defaultLeaderboardData = {
+          userId: userData.email, // Utilisez un identifiant unique pour associer les données
+          totalScore: 0,
+          rank: null,
+          playTime: 0,
+          victories: 0,
+        };
+
+        const defaultAchievementsData = {
+          userId: userData.email, // Utilisez un identifiant unique pour associer les données
+          achievements: [],
+        }
+
         // Ajout de l'utilisateur à la base simulée
         schema.db['users'].insert(userData);
+        schema.db['leaderboard'].insert(defaultLeaderboardData);
+        schema.db['achievements'].insert(defaultAchievementsData);
         return { message: 'Inscription réussie', user: userData };
       });
 

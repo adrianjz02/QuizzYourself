@@ -40,6 +40,7 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       this.authService.login(this.loginForm.value).subscribe({
         next: () => {
+          this.authService.setLoggedIn(true);
           alert('Connexion réussie');
           this.router.navigate(['/accueil']); // Redirige vers le tableau de bord après connexion
         },
