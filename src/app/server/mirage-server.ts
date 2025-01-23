@@ -13,6 +13,8 @@ export function makeServer() {
         users: [
           {firstName: 'Adrian', lastName: 'Jimenez', email: 'adrian@jimenez.com', password: 'adrianjimenez'},
         ],
+        leaderboard: [],
+        achievements: [],
       });
     },
     routes() {
@@ -23,9 +25,9 @@ export function makeServer() {
         const userData = JSON.parse(request.requestBody);
 
         // Vérifiez si l'utilisateur existe déjà
-        const existingUser = schema.db['users'].findBy({ email: userData.email });
+        const existingUser = schema.db['users'].findBy({email: userData.email});
         if (existingUser) {
-          return new Response(400, {}, { error: 'Cet email est déjà utilisé.' });
+          return new Response(400, {}, {error: 'Cet email est déjà utilisé.'});
         }
 
         // Ajout des données par défaut pour le leaderboard et les achievements
@@ -46,20 +48,20 @@ export function makeServer() {
         schema.db['users'].insert(userData);
         schema.db['leaderboard'].insert(defaultLeaderboardData);
         schema.db['achievements'].insert(defaultAchievementsData);
-        return { message: 'Inscription réussie', user: userData };
+        return {message: 'Inscription réussie', user: userData};
       });
 
       // Endpoint pour la connexion
       this.post('/login', (schema, request) => {
-        const { email, password } = JSON.parse(request.requestBody);
+        const {email, password} = JSON.parse(request.requestBody);
 
         // Vérifiez si l'utilisateur existe dans la base
-        const user = schema.db['users'].findBy({ email, password });
+        const user = schema.db['users'].findBy({email, password});
         if (user) {
-          return { message: 'Connexion réussie', token: 'fake-jwt-token' };
+          return {message: 'Connexion réussie', token: 'fake-jwt-token'};
         }
 
-        return new Response(401, {}, { error: 'Identifiants invalides. Veuillez vous inscrire.' });
+        return new Response(401, {}, {error: 'Identifiants invalides. Veuillez vous inscrire.'});
       });
 
     },
