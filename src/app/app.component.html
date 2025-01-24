@@ -1,3 +1,8 @@
 <app-header></app-header>
-<router-outlet></router-outlet>
+<!--
+margin top pour ne pas superposer le header avec le contenu de la page
+-->
+<div [ngStyle]="{'margin-top': headerHeight + 'px'}">
+  <router-outlet></router-outlet>
+</div>
 <app-footer></app-footer>
