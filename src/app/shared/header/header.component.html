@@ -25,7 +25,7 @@
             <a class="nav-link" routerLink="/auth/login">Connexion</a>
           </li>
           <li class="nav-item" *ngIf="isLoggedIn">
-            <a class="nav-link" href="" (click)="onLogout()">Déconnexion</a>
+            <a class="nav-link" routerLink="/accueil" (click)="onLogout()">Déconnexion</a>
           </li>
         </ul>
       </div>
