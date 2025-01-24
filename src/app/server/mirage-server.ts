@@ -13,6 +13,10 @@ export function makeServer() {
         users: [
           {firstName: 'Adrian', lastName: 'Jimenez', email: 'adrian@jimenez.com', password: 'adrianjimenez'},
         ],
+        parties_jouees: [],
+        taux_reussite: [],
+        evolution_scores: [],
+        temps_reponse: [],
         leaderboard: [],
         achievements: [],
       });

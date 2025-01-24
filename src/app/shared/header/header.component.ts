@@ -65,11 +65,11 @@ export class HeaderComponent {
       if (modalElement) {
         const modal = new Modal(modalElement); // Crée une instance du modal
         modal.show(); // Affiche le modal
-        this.router.navigate(['/auth/signup']);
+        this.router.navigate(['/auth/login']).then(() => console.log('Redirection vers la page de connexion'));
       }
     } else {
       // Redirige uniquement si l'utilisateur est connecté
-      this.router.navigate(['/user/profile']);
+      this.router.navigate(['/user/profile']).then(() => console.log('Redirection vers le profil utilisateur'));
     }
   }
 
