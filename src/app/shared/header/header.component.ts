@@ -65,6 +65,7 @@ export class HeaderComponent {
       if (modalElement) {
         const modal = new Modal(modalElement); // Crée une instance du modal
         modal.show(); // Affiche le modal
+        this.router.navigate(['/auth/signup']);
       }
     } else {
       // Redirige uniquement si l'utilisateur est connecté
