@@ -1,10 +1,9 @@
-import {Component, inject, signal, TemplateRef, WritableSignal} from '@angular/core';
-import {RouterLink} from '@angular/router';
+import {Component} from '@angular/core';
+import {Router, RouterLink} from '@angular/router';
 import {AuthService} from '../../auth/services/auth.service';
 import {NgIf} from '@angular/common';
-import {NgbDatepickerModule, NgbOffcanvas, OffcanvasDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import {NgbDatepickerModule} from '@ng-bootstrap/ng-bootstrap';
 import {Modal} from 'bootstrap';
-import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-header',
