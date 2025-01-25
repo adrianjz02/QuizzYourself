@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { GamificationComponent } from './gamification.component';
+import {GamificationComponent} from './gamification.component';
 
 describe('GamificationComponent', () => {
   let component: GamificationComponent;
@@ -10,7 +10,7 @@ describe('GamificationComponent', () => {
     await TestBed.configureTestingModule({
       imports: [GamificationComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(GamificationComponent);
     component = fixture.componentInstance;

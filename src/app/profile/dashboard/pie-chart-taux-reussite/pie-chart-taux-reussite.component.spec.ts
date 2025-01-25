@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { PieChartTauxReussiteComponent } from './pie-chart-taux-reussite.component';
+import {PieChartTauxReussiteComponent} from './pie-chart-taux-reussite.component';
 
 describe('PieChartTauxReussiteComponent', () => {
   let component: PieChartTauxReussiteComponent;
@@ -10,7 +10,7 @@ describe('PieChartTauxReussiteComponent', () => {
     await TestBed.configureTestingModule({
       imports: [PieChartTauxReussiteComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(PieChartTauxReussiteComponent);
     component = fixture.componentInstance;

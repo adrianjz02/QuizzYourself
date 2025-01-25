@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { LineChartEvolutionScoresComponent } from './line-chart-evolution-scores.component';
+import {LineChartEvolutionScoresComponent} from './line-chart-evolution-scores.component';
 
 describe('LineChartEvolutionScoresComponent', () => {
   let component: LineChartEvolutionScoresComponent;
@@ -10,7 +10,7 @@ describe('LineChartEvolutionScoresComponent', () => {
     await TestBed.configureTestingModule({
       imports: [LineChartEvolutionScoresComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(LineChartEvolutionScoresComponent);
     component = fixture.componentInstance;

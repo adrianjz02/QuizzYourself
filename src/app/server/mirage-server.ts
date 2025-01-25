@@ -11,25 +11,27 @@ export function makeServer() {
       // Ajouter un utilisateur par défaut pour la connexion
       server.db.loadData({
         users: [
-          {firstName: 'Adrian', lastName: 'Jimenez', email: 'adrian@jimenez.com', password: 'adrianjimenez'},
+          {firstName: 'Adrian', lastName: 'Jimenez', email: 'ad@jz.com', password: 'adjz'},
           {firstName: 'ad', lastName: 'jz', email: 'ad@jz.com', password: 'adjz'},
+          {firstName: 'ay', lastName: 'ca', email: 'ay@ca.com', password: 'ayca'},
         ],
         parties_jouees: [
-          {email: 'adrian@jimenez.com', totalParties: 25},
-          {email: 'ad@jz.com', totalParties: 18},
+          {email: 'ad@jz.com', totalParties: 100},
+          {email: 'ay@ca.com', totalParties: 50},
+          {email: 'ma@gu.com', totalParties: 25},
         ],
         taux_reussite: [
-          {email: 'adrian@jimenez.com', bonnesReponses: 85, totalReponses: 100},
-          {email: 'ad@jz.com', bonnesReponses: 72, totalReponses: 90},
+          {email: 'ad@jz.com', bonnesReponses: 85, totalReponses: 100},
+          {email: 'ay@ca.com', bonnesReponses: 72, totalReponses: 90},
         ],
         evolution_scores: [
-          {partieId: 1, email: 'adrian@jimenez.com', score: 80, datePartie: '2025-01-01'},
-          {partieId: 2, email: 'adrian@jimenez.com', score: 95, datePartie: '2025-01-02'},
+          {partieId: 1, email: 'ad@jz.com', score: 80, datePartie: '2025-01-01'},
+          {partieId: 2, email: 'ad@jz.com', score: 95, datePartie: '2025-01-02'},
           {partieId: 3, email: 'ad@jz.com', score: 70, datePartie: '2025-01-03'},
         ],
         temps_reponse: [
-          {email: 'adrian@jimenez.com', tempsMoyenMs: 1750}, // Moyenne des temps : (1500 + 2000) / 2
-          {email: 'ad@jz.com', tempsMoyenMs: 1800},          // Moyenne d'un seul temps : 1800
+          {email: 'ad@jz.com', tempsMoyenMs: 1750}, // Moyenne des temps : (1500 + 2000) / 2
+          {email: 'ay@ca.com', tempsMoyenMs: 1800},          // Moyenne d'un seul temps : 1800
         ],
         leaderboard: [],
         achievements: [],
@@ -86,7 +88,8 @@ export function makeServer() {
         return new Response(401, {}, {error: 'Identifiants invalides. Veuillez vous inscrire.'});
       });
 
-      // Route pour récupérer le nombre de parties jouées
+
+      /*// Route pour récupérer le nombre de parties jouées
       this.get("/parties_jouees", (schema) => {
         return schema.db['parties_jouees'];
       });
@@ -104,8 +107,65 @@ export function makeServer() {
       // Route pour récupérer le temps moyen de réponse
       this.get("/temps_reponse", (schema) => {
         return schema.db['temps_reponse'];
+      });*/
+
+      this.get("/parties_jouees", (schema, request) => {
+        const email = request.queryParams['email'];
+        if (email) {
+          const userParties = schema.db['parties_jouees'].findBy({email});
+          if (userParties) {
+            return userParties; // Retourner directement l'objet correspondant
+          }
+        }
+        return new Response(404, {}, {error: "Utilisateur non trouvé"});
       });
+
+      this.get("/taux_reussite", (schema, request) => {
+        const email = request.queryParams['email'];
+        if (email) {
+          return schema.db['taux_reussite'].findBy({email});
+        }
+        return new Response(404, {}, {error: "Utilisateur non trouvé"});
+      });
+
+      this.get("/evolution_scores", (schema, request) => {
+        const email = request.queryParams['email'];
+        if (email) {
+          return schema.db['evolution_scores'].filter((score) => score.email === email);
+        }
+        return new Response(404, {}, {error: "Utilisateur non trouvé"});
+      });
+
+      this.get("/temps_reponse", (schema, request) => {
+        const email = request.queryParams['email'];
+        if (email) {
+          return schema.db['temps_reponse'].findBy({email});
+        }
+        return new Response(404, {}, {error: "Utilisateur non trouvé"});
+      });
+
+
+      // Méthode pour obtenir le maximum de parties jouées
+      this.get("/max_parties", (schema) => {
+        const parties = schema.db['parties_jouees'];
+        if (parties && parties.length > 0) {
+          const maxParties = parties.reduce((max, current) => current.totalParties > max ? current.totalParties : max, 0);
+          return {maxParties};
+        }
+        return {maxParties: 0}; // Si aucune donnée
+      });
+
+      // Méthode pour calculer la moyenne des parties jouées
+      this.get("/average_parties", (schema) => {
+        const parties = schema.db['parties_jouees'];
+        if (parties && parties.length > 0) {
+          const total = parties.reduce((sum, current) => sum + current.totalParties, 0);
+          const average = total / parties.length;
+          return {averageParties: average};
+        }
+        return {averageParties: 0}; // Si aucune donnée
+      });
+
     },
-    
   });
 }

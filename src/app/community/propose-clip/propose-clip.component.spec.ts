@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ProposeClipComponent } from './propose-clip.component';
+import {ProposeClipComponent} from './propose-clip.component';
 
 describe('ProposeClipComponent', () => {
   let component: ProposeClipComponent;
@@ -10,7 +10,7 @@ describe('ProposeClipComponent', () => {
     await TestBed.configureTestingModule({
       imports: [ProposeClipComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(ProposeClipComponent);
     component = fixture.componentInstance;

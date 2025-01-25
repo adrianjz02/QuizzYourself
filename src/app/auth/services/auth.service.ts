@@ -10,8 +10,10 @@ export class AuthService {
   private signupUrl = '/api/signup';
   private loginUrl = '/api/login';
   private isLoggedInSubject = new BehaviorSubject<boolean>(false);
+  private userEmail: string | null = null; // Propriété pour sauvegarder l'email
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+  }
 
   signUp(userData: any): Observable<any> {
     return this.http.post(this.signupUrl, userData).pipe(
@@ -29,12 +31,28 @@ export class AuthService {
         console.error(error);
         return throwError(() => new Error(error.message || 'Erreur serveur'));
       })
+    ).pipe(
+      // Après la connexion, sauvegarder l'email
+      catchError((error) => {
+        console.error(error);
+        return throwError(() => new Error(error.message || 'Erreur serveur'));
+      })
     );
   }
 
   // Méthode pour mettre à jour l'état de connexion
-  setLoggedIn(status: boolean): void {
+  setLoggedIn(status: boolean, email: string | null = null): void {
     this.isLoggedInSubject.next(status);
+    if (status && email) {
+      this.userEmail = email; // Sauvegarde de l'email
+    } else {
+      this.userEmail = null; // Réinitialise l'email en cas de déconnexion
+    }
+  }
+
+  // Méthode pour récupérer l'email de l'utilisateur connecté
+  getUserEmail(): string | null {
+    return this.userEmail;
   }
 
   // Méthode pour obtenir l'état de connexion
@@ -43,7 +61,7 @@ export class AuthService {
   }
 
   logout(): void {
-    this.setLoggedIn(false); // Met à jour l'état de connexion
+    this.setLoggedIn(false, null); // Met à jour l'état de connexion
     // Optionnel : Supprimez des données spécifiques si nécessaires (ex. : token, session)
     console.log('Déconnexion réussie');
   }

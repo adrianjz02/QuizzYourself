@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { BarChartTempsReponseComponent } from './bar-chart-temps-reponse.component';
+import {BarChartTempsReponseComponent} from './bar-chart-temps-reponse.component';
 
 describe('BarChartTempsReponseComponent', () => {
   let component: BarChartTempsReponseComponent;
@@ -10,7 +10,7 @@ describe('BarChartTempsReponseComponent', () => {
     await TestBed.configureTestingModule({
       imports: [BarChartTempsReponseComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(BarChartTempsReponseComponent);
     component = fixture.componentInstance;

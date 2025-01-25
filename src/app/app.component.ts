@@ -1,5 +1,5 @@
 import {Component, ElementRef} from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import {RouterOutlet} from '@angular/router';
 import {HeaderComponent} from './shared/header/header.component';
 import {FooterComponent} from './shared/footer/footer.component';
 import {NgStyle} from '@angular/common';
@@ -14,7 +14,8 @@ export class AppComponent {
   //margin top pour ne pas superposer le header avec le contenu de la page
   headerHeight: number = 0;
 
-  constructor(private elementRef: ElementRef) {}
+  constructor(private elementRef: ElementRef) {
+  }
 
   ngAfterViewInit() {
     const header = this.elementRef.nativeElement.querySelector('.navbar');

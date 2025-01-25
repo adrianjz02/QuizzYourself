@@ -40,9 +40,9 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       this.authService.login(this.loginForm.value).subscribe({
         next: () => {
-          this.authService.setLoggedIn(true);
+          this.authService.setLoggedIn(true, this.loginForm.value.email); // Met à jour l'état de connexion
           alert('Connexion réussie');
-          this.router.navigate(['/accueil']); // Redirige vers le tableau de bord après connexion
+          this.router.navigate(['/accueil']).then(r => console.log("Connexion réussi.")); // Redirige vers le tableau de bord après connexion
         },
         error: () => {
           alert('Erreur : Identifiants invalides. Veuillez réessayer.');

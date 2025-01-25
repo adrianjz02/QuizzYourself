@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { LeaderboardComponent } from './leaderboard.component';
+import {LeaderboardComponent} from './leaderboard.component';
 
 describe('LeaderboardComponent', () => {
   let component: LeaderboardComponent;
@@ -10,7 +10,7 @@ describe('LeaderboardComponent', () => {
     await TestBed.configureTestingModule({
       imports: [LeaderboardComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(LeaderboardComponent);
     component = fixture.componentInstance;
