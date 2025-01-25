@@ -11,9 +11,8 @@ import {LeaderboardComponent} from './gamification/leaderboard/leaderboard.compo
 import {QuizComponent} from './quiz/quiz.component';
 import {QuizMainComponent} from './quiz/quiz-main/quiz-main.component';
 import {TestFrameworkComponent} from './test-framework/test-framework.component';
-import {UserComponent} from './user/user.component';
-import {EditProfileComponent} from './user/edit-profile/edit-profile.component';
-import {ProfileComponent} from './user/profile/profile.component';
+import {ProfileComponent} from './profile/profile.component';
+import {EditProfileComponent} from './profile/edit-profile/edit-profile.component';
 
 export const routes: Routes = [
   {
@@ -47,11 +46,10 @@ export const routes: Routes = [
     ]
   },
   {
-    path: 'user',
-    component: UserComponent,
+    path: 'profile',
+    component: ProfileComponent,
     children: [
       {path: 'edit', component: EditProfileComponent},
-      {path: 'profile', component: ProfileComponent},
     ]
   },
   {path: 'test', component: TestFrameworkComponent},

@@ -12,11 +12,25 @@ export function makeServer() {
       server.db.loadData({
         users: [
           {firstName: 'Adrian', lastName: 'Jimenez', email: 'adrian@jimenez.com', password: 'adrianjimenez'},
+          {firstName: 'ad', lastName: 'jz', email: 'ad@jz.com', password: 'adjz'},
         ],
-        parties_jouees: [],
-        taux_reussite: [],
-        evolution_scores: [],
-        temps_reponse: [],
+        parties_jouees: [
+          {email: 'adrian@jimenez.com', totalParties: 25},
+          {email: 'ad@jz.com', totalParties: 18},
+        ],
+        taux_reussite: [
+          {email: 'adrian@jimenez.com', bonnesReponses: 85, totalReponses: 100},
+          {email: 'ad@jz.com', bonnesReponses: 72, totalReponses: 90},
+        ],
+        evolution_scores: [
+          {partieId: 1, email: 'adrian@jimenez.com', score: 80, datePartie: '2025-01-01'},
+          {partieId: 2, email: 'adrian@jimenez.com', score: 95, datePartie: '2025-01-02'},
+          {partieId: 3, email: 'ad@jz.com', score: 70, datePartie: '2025-01-03'},
+        ],
+        temps_reponse: [
+          {email: 'adrian@jimenez.com', tempsMoyenMs: 1750}, // Moyenne des temps : (1500 + 2000) / 2
+          {email: 'ad@jz.com', tempsMoyenMs: 1800},          // Moyenne d'un seul temps : 1800
+        ],
         leaderboard: [],
         achievements: [],
       });
@@ -45,11 +59,15 @@ export function makeServer() {
 
         const defaultAchievementsData = {
           userId: userData.email, // Utilisez un identifiant unique pour associer les données
-          achievements: [],
+          achievements: [], // faire une db associé aux badges, tel badge = tel image avec son nom associé
         }
 
         // Ajout de l'utilisateur à la base simulée
         schema.db['users'].insert(userData);
+        schema.db['parties_jouees'].insert({email: userData.email, totalParties: 0});
+        schema.db['taux_reussite'].insert({email: userData.email, bonnesReponses: 0, totalReponses: 0});
+        schema.db['evolution_scores'].insert({partieId: 0, email: userData.email, score: 0, datePartie: ''});
+        schema.db['temps_reponse'].insert({email: userData.email, tempsMoyenMs: 0});
         schema.db['leaderboard'].insert(defaultLeaderboardData);
         schema.db['achievements'].insert(defaultAchievementsData);
         return {message: 'Inscription réussie', user: userData};
@@ -68,6 +86,26 @@ export function makeServer() {
         return new Response(401, {}, {error: 'Identifiants invalides. Veuillez vous inscrire.'});
       });
 
+      // Route pour récupérer le nombre de parties jouées
+      this.get("/parties_jouees", (schema) => {
+        return schema.db['parties_jouees'];
+      });
+
+      // Route pour récupérer le taux de réussite
+      this.get("/taux_reussite", (schema) => {
+        return schema.db['taux_reussite'];
+      });
+
+      // Route pour récupérer l'évolution des scores
+      this.get("/evolution_scores", (schema) => {
+        return schema.db['evolution_scores'];
+      });
+
+      // Route pour récupérer le temps moyen de réponse
+      this.get("/temps_reponse", (schema) => {
+        return schema.db['temps_reponse'];
+      });
     },
+    
   });
 }
