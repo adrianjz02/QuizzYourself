@@ -25,13 +25,13 @@ export function makeServer() {
           {email: 'ay@ca.com', bonnesReponses: 72, totalReponses: 90},
         ],
         evolution_scores: [
-          {partieId: 1, email: 'ad@jz.com', score: 80, datePartie: '2025-01-01'},
-          {partieId: 2, email: 'ad@jz.com', score: 95, datePartie: '2025-01-02'},
-          {partieId: 3, email: 'ad@jz.com', score: 70, datePartie: '2025-01-03'},
+          {partieId: 1, email: 'ad@jz.com', score: 80, datePartie: '2025-01-01', tempsMoyenReponse: 1750},
+          {partieId: 2, email: 'ad@jz.com', score: 95, datePartie: '2025-01-02', tempsMoyenReponse: 1850},
+          {partieId: 3, email: 'ad@jz.com', score: 70, datePartie: '2025-01-03', tempsMoyenReponse: 1850},
         ],
         temps_reponse: [
-          {email: 'ad@jz.com', tempsMoyenMs: 1750}, // Moyenne des temps : (1500 + 2000) / 2
-          {email: 'ay@ca.com', tempsMoyenMs: 1800},          // Moyenne d'un seul temps : 1800
+          {email: 'ad@jz.com', tempsMoyenMs: 1750}, // Moyenne des temps : (1500 + 2000) / 2, ici faire une requete de la somme des parties du jouers et / par le nombre
+          {email: 'ay@ca.com', tempsMoyenMs: 1800}, // Moyenne d'un seul temps : 1800
         ],
         leaderboard: [],
         achievements: [],

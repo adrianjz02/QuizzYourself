@@ -1,11 +1,46 @@
-import {Component} from '@angular/core';
+import {Component, ViewChild, OnInit} from '@angular/core';
+import {BaseChartDirective} from 'ng2-charts';
+import {ChartConfiguration, ChartData, ChartType} from 'chart.js';
+import {GraphService} from '../services/graph-service.service';
 
 @Component({
   selector: 'app-pie-chart-taux-reussite',
-  imports: [],
   templateUrl: './pie-chart-taux-reussite.component.html',
-  styleUrl: './pie-chart-taux-reussite.component.css'
+  styleUrls: ['./pie-chart-taux-reussite.component.css']
 })
-export class PieChartTauxReussiteComponent {
+export class PieChartTauxReussiteComponent implements OnInit {
+  @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
 
+  public pieChartOptions: ChartConfiguration['options'] = {
+    plugins: {
+      legend: {
+        display: true,
+        position: 'top',
+      },
+    },
+  };
+  public pieChartData: ChartData<'pie', number[], string | string[]> = {
+    labels: [],
+    datasets: [
+      {
+        data: [],
+      },
+    ],
+  };
+  public pieChartType: ChartType = 'pie';
+
+  constructor(private graphService: GraphService) {}
+
+  ngOnInit(): void {
+    this.graphService.getTauxReussite().subscribe((data) => {
+      if (data) {
+        this.pieChartData.labels = ['Bonnes Réponses', 'Mauvaises Réponses'];
+        this.pieChartData.datasets[0].data = [
+          data.bonnesReponses,
+          data.totalReponses - data.bonnesReponses,
+        ];
+        this.chart?.update();
+      }
+    });
+  }
 }

@@ -81,7 +81,8 @@ export class LineChartEvolutionScoresComponent {
 
   @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
 
-  constructor(private graphService: GraphService) {}
+  constructor(private graphService: GraphService) {
+  }
 
   ngOnInit(): void {
     this.loadEvolutionScores();
