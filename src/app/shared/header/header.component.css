@@ -40,3 +40,23 @@
   align-items: center;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5); /* Ombre vers le bas pour le relief */
 }
+
+/* Afficher le dropdown au survol */
+.nav-item.dropdown:hover .dropdown-menu {
+  display: block;
+  margin-top: 0; /* Optionnel, pour ajuster la position du dropdown */
+}
+
+/* Optionnel: personnaliser l'apparence du dropdown */
+.dropdown-menu {
+  background-color: #0a0b0c; /* Fond sombre du dropdown */
+}
+
+.dropdown-item {
+  color: #fff; /* Texte des éléments */
+}
+
+.dropdown-item:hover {
+  color: #fff; /* Change la couleur du texte au survol */
+  background-color: rgba(36, 40, 41, 0.66); /* Changement de fond au survol */
+}

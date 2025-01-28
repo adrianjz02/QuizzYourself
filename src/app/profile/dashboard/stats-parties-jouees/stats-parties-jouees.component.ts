@@ -2,6 +2,7 @@ import {Component, ViewChild} from '@angular/core';
 import {BaseChartDirective} from 'ng2-charts';
 import {ChartConfiguration, ChartData} from 'chart.js';
 import {GraphService} from '../services/graph-service.service';
+import {auto} from '@popperjs/core';
 
 @Component({
   selector: 'app-stats-parties-jouees',
@@ -46,12 +47,18 @@ export class StatsPartiesJoueesComponent {
         ticks: {
           color: 'white', // Set x-axis label text color to white
         },
+        grid: {
+          color: 'rgba(255, 255, 255, 0.3)', // Set the color of the X-axis grid lines to white with 50% opacity
+        }
       },
       y: {
         min: 0,
         ticks: {
           color: 'white', // Set y-axis label text color to white
         },
+        grid: {
+          color: 'rgba(255, 255, 255, 0.3)', // Set the color of the X-axis grid lines to white with 50% opacity
+        }
       },
     },
     plugins: {
@@ -77,6 +84,7 @@ export class StatsPartiesJoueesComponent {
         data: [0],
         label: 'Parties Jouées',
         backgroundColor: 'rgba(75,192,192,0.6)',
+
       },
       {
         data: [0],

@@ -16,8 +16,14 @@
           <li class="nav-item">
             <a class="nav-link text-white active" aria-current="page" routerLink="/accueil">Accueil</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link text-white" (click)="onProfileClick($event)" routerLink="/profile">Profile</a>
+          <li class="nav-item dropdown">
+            <a class="nav-link text-white dropdown-toggle" (click)="onProfileClick($event)" routerLink="/profile">Profile</a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" routerLink="/profile">Voir le Profil</a></li>
+              <li><a class="dropdown-item" routerLink="/profile/dashboard">Statistiques</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" (click)="onLogout()">Déconnexion</a></li>
+            </ul>
           </li>
           <li class="nav-item" *ngIf="!isLoggedIn">
             <a class="nav-link text-white" routerLink="/auth/signup">Inscription</a>

@@ -45,6 +45,9 @@ export class LineChartEvolutionScoresComponent {
         },
         ticks: {
           color: 'white',
+        },
+        grid: {
+          color: 'rgba(255, 255, 255, 0.3)', // Set the color of the X-axis grid lines to white with 50% opacity
         }
       },
       y: { // Axe des scores
@@ -54,6 +57,9 @@ export class LineChartEvolutionScoresComponent {
         },
         ticks: {
           color: 'white',
+        },
+        grid: {
+          color: 'rgba(255, 255, 255, 0.3)', // Set the color of the X-axis grid lines to white with 50% opacity
         }
       },
     },
