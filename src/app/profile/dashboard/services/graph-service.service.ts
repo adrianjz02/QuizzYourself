@@ -44,6 +44,10 @@ export class GraphService {
     return this.http.get<any>(`/api/temps_reponse?email=${(email)}`);
   }
 
+  getAverageTempsReponse(): Observable<any> {
+    return this.http.get('/api/temps_reponse/moyenne');
+  }
+
   //  Max parties
   getMaxParties(): Observable<any> {
     return this.http.get('/api/max_parties');

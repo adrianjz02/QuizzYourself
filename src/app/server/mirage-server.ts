@@ -148,6 +148,17 @@ export function makeServer() {
         return new Response(404, {}, {error: "Utilisateur non trouvé"});
       });
 
+      // Route pour récupérer la moyenne des temps de réponse
+      this.get("/temps_reponse/moyenne", (schema) => {
+        const temps = schema.db['temps_reponse'];
+        if (temps.length === 0) return { moyenne: 0 };
+
+        // Calcul de la moyenne des tempsMoyenMs
+        const totalTemps = temps.reduce((sum, item) => sum + item.tempsMoyenMs, 0);
+        const moyenne = totalTemps / temps.length;
+
+        return { moyenne };
+      });
 
       // Méthode pour obtenir le maximum de parties jouées
       this.get("/max_parties", (schema) => {

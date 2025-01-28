@@ -27,6 +27,9 @@ export class PieChartTauxReussiteComponent implements OnInit {
     datasets: [
       {
         data: [],
+        backgroundColor: ['#FF6384', '#36A2EB'], // Couleurs pour chaque segment
+        borderColor: ['#FF6384', '#36A2EB'],    // Couleur des bordures (facultatif)
+        borderWidth: 1,                         // Largeur des bordures (facultatif)
       },
     ],
   };
