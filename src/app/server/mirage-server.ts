@@ -4,6 +4,10 @@ export function makeServer() {
   createServer({
     models: {
       users: Model,
+      parties_jouees: Model,
+      taux_reussite: Model,
+      evolution_scores: Model,
+      temps_reponse: Model,
       leaderboard: Model,
       achievement: Model,
     },
