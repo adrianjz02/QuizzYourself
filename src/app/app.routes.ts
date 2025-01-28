@@ -13,6 +13,7 @@ import {QuizMainComponent} from './quiz/quiz-main/quiz-main.component';
 import {TestFrameworkComponent} from './test-framework/test-framework.component';
 import {ProfileComponent} from './profile/profile.component';
 import {EditProfileComponent} from './profile/edit-profile/edit-profile.component';
+import {DashboardComponent} from './profile/dashboard/dashboard.component';
 
 export const routes: Routes = [
   {
@@ -50,6 +51,7 @@ export const routes: Routes = [
     component: ProfileComponent,
     children: [
       {path: 'edit', component: EditProfileComponent},
+      {path: 'dashboard', component: DashboardComponent}
     ]
   },
   {path: 'test', component: TestFrameworkComponent},

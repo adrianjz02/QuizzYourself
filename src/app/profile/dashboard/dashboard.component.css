@@ -1,0 +1,10 @@
+.custom-container {
+  background-color: #5e6a75; /* Couleur de fond */
+  color: #ffffff; /* Texte en blanc pour contraster */
+  padding: 20px; /* Espacement intérieur pour une meilleure présentation */
+  border-radius: 10px; /* Coins arrondis pour un look moderne */
+}
+
+.custom-container .row {
+  margin-bottom: 20px; /* Espacement entre les rangées */
+}

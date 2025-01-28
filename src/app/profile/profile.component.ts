@@ -6,6 +6,7 @@ import {
 import {PieChartTauxReussiteComponent} from './dashboard/pie-chart-taux-reussite/pie-chart-taux-reussite.component';
 import {BarChartTempsReponseComponent} from './dashboard/bar-chart-temps-reponse/bar-chart-temps-reponse.component';
 import {AuthService} from '../auth/services/auth.service';
+import {RouterLink, RouterOutlet} from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -13,7 +14,9 @@ import {AuthService} from '../auth/services/auth.service';
     StatsPartiesJoueesComponent,
     LineChartEvolutionScoresComponent,
     PieChartTauxReussiteComponent,
-    BarChartTempsReponseComponent
+    BarChartTempsReponseComponent,
+    RouterLink,
+    RouterOutlet
   ],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
