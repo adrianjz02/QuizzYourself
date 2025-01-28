@@ -6,6 +6,9 @@ import {GraphService} from '../services/graph-service.service';
 @Component({
   selector: 'app-pie-chart-taux-reussite',
   templateUrl: './pie-chart-taux-reussite.component.html',
+  imports: [
+    BaseChartDirective
+  ],
   styleUrls: ['./pie-chart-taux-reussite.component.css']
 })
 export class PieChartTauxReussiteComponent implements OnInit {
