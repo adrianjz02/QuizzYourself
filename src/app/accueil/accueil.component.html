@@ -1,1 +1,62 @@
-<p>accueil works!</p>
+<div id="carouselExampleIndicators" class="carousel slide">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+  </div>
+  <div class="carousel-inner">
+    <div class="carousel-item active position-relative">
+      <img src="dark_souls3.jpg" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block custom-caption">
+        <h5>Jeux vidéos</h5>
+        <p>Explorez un monde sombre et captivant.</p>
+        <button class="btn btn-secondary btn-lg">Jouer</button>
+      </div>
+    </div>
+    <div class="carousel-item position-relative">
+      <img src="sports.jpg" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block custom-caption">
+        <h5>Sports</h5>
+        <p>Des moments épiques en action.</p>
+        <button class="btn btn-secondary btn-lg">Jouer</button>
+      </div>
+    </div>
+    <div class="carousel-item position-relative">
+      <img src="socialmedia.jpg" class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block custom-caption">
+        <h5>Social Media</h5>
+        <p>Connectez-vous avec le monde.</p>
+        <button class="btn btn-secondary btn-lg">Jouer</button>
+      </div>
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+
+<style>
+  .custom-caption {
+    bottom: 30%; /* Position de la légende */
+    text-align: center; /* Centrer le texte */
+  }
+
+  .custom-caption h5 {
+    font-size: 2.5rem; /* Taille du titre */
+    font-weight: bold; /* Mettre en gras */
+  }
+
+  .custom-caption p {
+    font-size: 1.5rem; /* Taille du paragraphe */
+  }
+
+  .custom-caption button {
+    font-size: 1.2rem; /* Taille du bouton */
+    padding: 10px 20px; /* Ajuste l'espacement interne du bouton */
+  }
+</style>

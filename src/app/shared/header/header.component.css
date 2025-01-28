@@ -3,3 +3,23 @@
   color: #ce757c;
   border-color: #842029;
 }
+
+.navbar {
+  background-color: #343a40; /* Noir/gris foncé */
+}
+
+.offcanvas {
+  background-color: #343a40; /* Même couleur pour l'offcanvas */
+}
+
+.nav-link, .navbar-brand, .offcanvas-title {
+  color: white !important; /* Texte blanc */
+}
+
+.nav-link:hover {
+  color: #adb5bd !important; /* Gris clair au survol */
+}
+
+.btn-close-white {
+  filter: invert(1); /* Change la croix de fermeture en blanc */
+}

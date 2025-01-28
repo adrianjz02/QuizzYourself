@@ -1,0 +1,6 @@
+.carousel-inner img {
+  height: 500px; /* Ajuste cette valeur selon tes besoins */
+  object-fit: cover; /* Permet de conserver les proportions de l'image */
+  filter: brightness(30%); /* Réduit la luminosité à 50% */
+}
+
