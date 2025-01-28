@@ -1,0 +1,11 @@
+/* Apply flexbox to the entire page */
+.page-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Ensure the page container takes up the full viewport height */
+}
+
+/* Make sure the main content fills available space and pushes footer to the bottom */
+.page-container > div {
+  flex: 1;
+}

@@ -43,37 +43,28 @@ export class LineChartEvolutionScoresComponent {
           display: true,
           text: 'Dates des parties',
         },
+        ticks: {
+          color: 'white',
+        }
       },
       y: { // Axe des scores
         title: {
           display: true,
           text: 'Scores',
         },
+        ticks: {
+          color: 'white',
+        }
       },
     },
 
     plugins: {
-      legend: {display: true},
-      /*      annotation: {
-              annotations: [
-                {
-                  type: 'line',
-                  scaleID: 'x',
-                  value: 'March',
-                  borderColor: 'orange',
-                  borderWidth: 2,
-                  label: {
-                    display: true,
-                    position: 'center',
-                    color: 'orange',
-                    content: 'LineAnno',
-                    font: {
-                      weight: 'bold',
-                    },
-                  },
-                },
-              ],
-            },*/
+      legend: {
+        display: true,
+        labels: {
+          color: 'white',
+        },
+      },
     },
   };
 

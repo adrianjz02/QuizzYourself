@@ -1,4 +1,4 @@
-import {Component, ViewChild, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {BaseChartDirective} from 'ng2-charts';
 import {ChartConfiguration, ChartData, ChartType} from 'chart.js';
 import {GraphService} from '../services/graph-service.service';
@@ -19,23 +19,32 @@ export class PieChartTauxReussiteComponent implements OnInit {
       legend: {
         display: true,
         position: 'top',
+        labels: {
+          color: 'white', // Set legend text color to white
+        },
+      },
+      tooltip: {
+        bodyColor: 'white', // Set tooltip text color to white
       },
     },
   };
+
   public pieChartData: ChartData<'pie', number[], string | string[]> = {
-    labels: [],
+    labels: [], // Labels for the pie chart
     datasets: [
       {
         data: [],
-        backgroundColor: ['#FF6384', '#36A2EB'], // Couleurs pour chaque segment
-        borderColor: ['#FF6384', '#36A2EB'],    // Couleur des bordures (facultatif)
-        borderWidth: 1,                         // Largeur des bordures (facultatif)
+        backgroundColor: ['#FF6384', '#36A2EB'], // Colors for each segment
+        borderColor: ['#FF6384', '#36A2EB'],    // Border colors (optional)
+        borderWidth: 1,                         // Border width (optional)
       },
     ],
   };
+
   public pieChartType: ChartType = 'pie';
 
-  constructor(private graphService: GraphService) {}
+  constructor(private graphService: GraphService) {
+  }
 
   ngOnInit(): void {
     this.graphService.getTauxReussite().subscribe((data) => {

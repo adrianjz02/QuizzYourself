@@ -7,12 +7,12 @@ import {AuthService} from '../../auth/services/auth.service';
 
 @Component({
   selector: 'app-dashboard',
-    imports: [
-        BarChartTempsReponseComponent,
-        LineChartEvolutionScoresComponent,
-        PieChartTauxReussiteComponent,
-        StatsPartiesJoueesComponent
-    ],
+  imports: [
+    BarChartTempsReponseComponent,
+    LineChartEvolutionScoresComponent,
+    PieChartTauxReussiteComponent,
+    StatsPartiesJoueesComponent
+  ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })

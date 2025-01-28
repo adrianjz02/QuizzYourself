@@ -17,14 +17,24 @@ export class BarChartTempsReponseComponent {
   public barChartOptions: ChartConfiguration<'bar'>['options'] = {
     // We use these empty structures as placeholders for dynamic theming.
     scales: {
-      x: {},
+      x: {
+        ticks: {
+          color: 'white',
+        }
+      },
       y: {
         min: 0,
+        ticks: {
+          color: 'white',
+        }
       },
     },
     plugins: {
       legend: {
         display: true,
+        labels: {
+          color: 'white',
+        },
       },
     },
   };
@@ -38,7 +48,8 @@ export class BarChartTempsReponseComponent {
     ],
   };
 
-  constructor(private graphService: GraphService) {}
+  constructor(private graphService: GraphService) {
+  }
 
   ngOnInit(): void {
     this.graphService.getTempsReponse().subscribe((data) => {

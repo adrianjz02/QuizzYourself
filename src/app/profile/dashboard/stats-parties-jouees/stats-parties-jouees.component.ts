@@ -42,24 +42,47 @@ export class StatsPartiesJoueesComponent {
 
   public barChartOptions: ChartConfiguration<'bar'>['options'] = {
     scales: {
-      x: {},
+      x: {
+        ticks: {
+          color: 'white', // Set x-axis label text color to white
+        },
+      },
       y: {
         min: 0,
+        ticks: {
+          color: 'white', // Set y-axis label text color to white
+        },
       },
     },
     plugins: {
       legend: {
         display: true,
+        labels: {
+          color: 'white', // Set legend text color to white
+        },
+      },
+      tooltip: {
+        bodyColor: 'white', // Set tooltip text color to white
       },
     },
+    responsive: true,
   };
+
   public barChartType = 'bar' as const;
 
   public barChartData: ChartData<'bar'> = {
     labels: ['Nombre de parties jouées'],
     datasets: [
-      {data: [0], label: 'Parties Jouées', backgroundColor: 'rgba(75,192,192,0.6)'},
-      {data: [0], label: 'Moyenne Parties', backgroundColor: 'rgba(255,99,132,0.6)'},
+      {
+        data: [0],
+        label: 'Parties Jouées',
+        backgroundColor: 'rgba(75,192,192,0.6)',
+      },
+      {
+        data: [0],
+        label: 'Moyenne Parties',
+        backgroundColor: 'rgba(255,99,132,0.6)',
+      },
     ],
   };
 

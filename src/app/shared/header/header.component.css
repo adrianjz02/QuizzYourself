@@ -1,17 +1,16 @@
+/* Pour le contenu modal */
 .modal-content {
   background-color: #2c0b0e;
   color: #ce757c;
   border-color: #842029;
 }
 
-.navbar {
-  background-color: #343a40; /* Noir/gris foncé */
+/* Navbar personnalisée */
+.navbar-custom {
+  background-color: #0a0b0c;
 }
 
-.offcanvas {
-  background-color: #343a40; /* Même couleur pour l'offcanvas */
-}
-
+/* Style pour les liens et autres éléments */
 .nav-link, .navbar-brand, .offcanvas-title {
   color: white !important; /* Texte blanc */
 }
@@ -20,6 +19,24 @@
   color: #adb5bd !important; /* Gris clair au survol */
 }
 
+/* Fermer les éléments avec une croix blanche */
 .btn-close-white {
   filter: invert(1); /* Change la croix de fermeture en blanc */
+}
+
+/* Ajout du box-shadow au bas de la navbar */
+.navbar-custom {
+  background-color: #0a0b0c;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5); /* Ombre douce en bas */
+}
+
+/* Ajout du box-shadow au bas du footer */
+.footer-container {
+  background-color: #151515; /* Fond noir/gris foncé */
+  color: white; /* Texte blanc */
+  padding: 30px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5); /* Ombre vers le bas pour le relief */
 }
