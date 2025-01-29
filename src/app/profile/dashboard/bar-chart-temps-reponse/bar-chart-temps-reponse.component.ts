@@ -17,14 +17,30 @@ export class BarChartTempsReponseComponent {
   public barChartOptions: ChartConfiguration<'bar'>['options'] = {
     // We use these empty structures as placeholders for dynamic theming.
     scales: {
-      x: {},
+      x: {
+        ticks: {
+          color: 'white',
+        },
+        grid: {
+          color: 'rgba(255, 255, 255, 0.3)', // Set the color of the X-axis grid lines to white with 50% opacity
+        }
+      },
       y: {
         min: 0,
+        ticks: {
+          color: 'white',
+        },
+        grid: {
+          color: 'rgba(255, 255, 255, 0.3)', // Set the color of the X-axis grid lines to white with 50% opacity
+        }
       },
     },
     plugins: {
       legend: {
         display: true,
+        labels: {
+          color: 'white',
+        },
       },
     },
   };
@@ -38,7 +54,8 @@ export class BarChartTempsReponseComponent {
     ],
   };
 
-  constructor(private graphService: GraphService) {}
+  constructor(private graphService: GraphService) {
+  }
 
   ngOnInit(): void {
     this.graphService.getTempsReponse().subscribe((data) => {

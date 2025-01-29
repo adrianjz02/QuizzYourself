@@ -1,10 +1,13 @@
 .footer-container {
-  background-color: #212529; /* Noir/gris foncé */
+  background-color: #0a0b0c; /* Noir/gris foncé */
   color: white; /* Texte blanc */
-  padding: 20px 10px;
+  padding: 30px 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.6); /* Ombre au-dessus du footer pour créer un relief */
+  position: relative;  /* Nécessaire pour que z-index fonctionne */
+  z-index: 1000;  /* Un z-index élevé pour mettre le footer au premier plan */
 }
 
 .footer-content {

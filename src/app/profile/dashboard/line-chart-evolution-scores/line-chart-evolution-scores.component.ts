@@ -43,37 +43,34 @@ export class LineChartEvolutionScoresComponent {
           display: true,
           text: 'Dates des parties',
         },
+        ticks: {
+          color: 'white',
+        },
+        grid: {
+          color: 'rgba(255, 255, 255, 0.3)', // Set the color of the X-axis grid lines to white with 50% opacity
+        }
       },
       y: { // Axe des scores
         title: {
           display: true,
           text: 'Scores',
         },
+        ticks: {
+          color: 'white',
+        },
+        grid: {
+          color: 'rgba(255, 255, 255, 0.3)', // Set the color of the X-axis grid lines to white with 50% opacity
+        }
       },
     },
 
     plugins: {
-      legend: {display: true},
-      /*      annotation: {
-              annotations: [
-                {
-                  type: 'line',
-                  scaleID: 'x',
-                  value: 'March',
-                  borderColor: 'orange',
-                  borderWidth: 2,
-                  label: {
-                    display: true,
-                    position: 'center',
-                    color: 'orange',
-                    content: 'LineAnno',
-                    font: {
-                      weight: 'bold',
-                    },
-                  },
-                },
-              ],
-            },*/
+      legend: {
+        display: true,
+        labels: {
+          color: 'white',
+        },
+      },
     },
   };
 
