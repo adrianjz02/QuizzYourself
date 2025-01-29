@@ -25,6 +25,9 @@
             <a class="nav-link text-white" routerLink="/auth/login">Connexion</a>
           </li>
           <li class="nav-item" *ngIf="isLoggedIn">
+            <a class="nav-link text-white" routerLink="/quiz/quiz-main">Quizzes</a>
+          </li>
+          <li class="nav-item" *ngIf="isLoggedIn">
             <a class="nav-link text-white" routerLink="/accueil" (click)="onLogout()">Déconnexion</a>
           </li>
         </ul>

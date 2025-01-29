@@ -1,0 +1,55 @@
+.options-container {
+  margin: 20px auto;
+  max-width: 800px;
+}
+
+.timer {
+  text-align: center;
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.options-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  padding: 15px;
+}
+
+.option-button {
+  width: 100%;
+  min-height: 60px;
+  font-size: 1rem;
+  text-align: left;
+  padding: 15px;
+  white-space: normal;
+  line-height: 1.4;
+  transition: all 0.3s ease;
+}
+
+.option-button:disabled {
+  opacity: 0.7;
+}
+
+.selected {
+  background-color: #e0e0e0;
+}
+
+.correct {
+  background-color: #4caf50 !important;
+  color: white !important;
+  border: 2px solid #45a049;
+}
+
+.incorrect {
+  background-color: #f44336 !important;
+  color: white !important;
+  border: 2px solid #da190b;
+}
+
+@media (max-width: 600px) {
+  .options-grid {
+    grid-template-columns: 1fr;
+  }
+}

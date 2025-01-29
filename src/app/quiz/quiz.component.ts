@@ -1,14 +1,14 @@
-import {Component} from '@angular/core';
-import {RouterOutlet} from '@angular/router';
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-quiz',
+  templateUrl: './quiz.component.html',
+  styleUrls: ['./quiz.component.css'],
+  standalone: true,
   imports: [
     RouterOutlet
-  ],
-  templateUrl: './quiz.component.html',
-  styleUrl: './quiz.component.css'
+  ]
 })
 export class QuizComponent {
-
 }

@@ -9,7 +9,7 @@ import {GamificationComponent} from './gamification/gamification.component';
 import {AchievementsComponent} from './gamification/achievements/achievements.component';
 import {LeaderboardComponent} from './gamification/leaderboard/leaderboard.component';
 import {QuizComponent} from './quiz/quiz.component';
-import {QuizMainComponent} from './quiz/quiz-main/quiz-main.component';
+import {QuizGameComponent} from './quiz/quiz-game/quiz-game.component';
 import {TestFrameworkComponent} from './test-framework/test-framework.component';
 import {ProfileComponent} from './profile/profile.component';
 import {EditProfileComponent} from './profile/edit-profile/edit-profile.component';
@@ -42,7 +42,7 @@ export const routes: Routes = [
     path: 'quiz',
     component: QuizComponent,
     children: [
-      {path: 'quiz-main', component: QuizMainComponent},
+      {path: 'quiz-main', component: QuizGameComponent},
     ]
   },
   {

@@ -1,0 +1,46 @@
+<div class="results-container">
+  <mat-card class="results-card">
+    <mat-card-header>
+      <mat-card-title>Quiz Results</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="stats-grid">
+        <div class="stat-item">
+          <mat-icon>score</mat-icon>
+          <h3>Score</h3>
+          <p>{{ results.score }} points</p>
+        </div>
+
+        <div class="stat-item">
+          <mat-icon>check_circle</mat-icon>
+          <h3>Success Rate</h3>
+          <p>{{ successRate }}%</p>
+        </div>
+
+        <div class="stat-item">
+          <mat-icon>timer</mat-icon>
+          <h3>Average Response Time</h3>
+          <p>{{ formattedAverageTime }}</p>
+        </div>
+
+        <div class="stat-item">
+          <mat-icon>quiz</mat-icon>
+          <h3>Correct Answers</h3>
+          <p>{{ results.correctAnswers }} / {{ results.totalQuestions }}</p>
+        </div>
+      </div>
+    </mat-card-content>
+
+    <mat-card-actions class="action-buttons">
+      <button mat-raised-button color="primary" (click)="playAgain()">
+        <mat-icon>replay</mat-icon>
+        Play Again
+      </button>
+      <button mat-raised-button (click)="goToHome()">
+        <mat-icon>home</mat-icon>
+        Return Home
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>

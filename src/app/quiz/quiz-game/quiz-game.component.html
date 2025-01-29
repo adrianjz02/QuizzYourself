@@ -1,0 +1,47 @@
+<div class="quiz-container">
+  @if (!isGameOver && currentQuiz) {
+    <div class="quiz-content">
+      <app-video-player
+        #videoPlayer
+        [videoUrl]="currentQuiz.videoUrl"
+        [pauseTimeInSeconds]="currentQuiz.pauseTimeInSeconds"
+        (videoPaused)="onVideoPaused()"
+        (videoEnded)="onVideoEnded()"
+      ></app-video-player>
+
+      <div class="question-container">
+        <app-answer-options
+          #answerOptions
+          [options]="currentQuiz.options"
+          [timeLimit]="currentQuiz.timeLimit"
+          [disabled]="!isQuestionPhase"
+          [correctAnswer]="currentQuiz.correctAnswer"
+          (optionSelected)="onAnswerSelected($event)"
+          (timeUp)="onTimeUp()"
+        ></app-answer-options>
+      </div>
+
+      <div class="quiz-progress">
+        <mat-progress-bar
+          mode="determinate"
+          [value]="(questionsAnswered / totalQuestions) * 100"
+        ></mat-progress-bar>
+        <span class="progress-text">
+          Question {{questionsAnswered + 1}} of {{totalQuestions}}
+        </span>
+      </div>
+    </div>
+  } @else if (isGameOver) {
+    <app-quiz-results
+      [results]="{
+        totalQuestions: totalQuestions,
+        correctAnswers: currentScore,
+        averageResponseTime: averageResponseTime,
+        score: currentScore,
+        totalAttempts: questionsAnswered,
+        averageTimeToAnswer: averageResponseTime,
+        successRate: (currentScore / totalQuestions) * 100
+      }"
+    ></app-quiz-results>
+  }
+</div>
