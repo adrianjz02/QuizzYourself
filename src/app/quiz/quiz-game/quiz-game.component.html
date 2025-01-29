@@ -11,13 +11,14 @@
 
       <div class="question-container">
         <app-answer-options
-          #answerOptions
           [options]="currentQuiz.options"
           [timeLimit]="currentQuiz.timeLimit"
+          [pauseTimeInSeconds]="currentQuiz.pauseTimeInSeconds"
           [disabled]="!isQuestionPhase"
           [correctAnswer]="currentQuiz.correctAnswer"
           (optionSelected)="onAnswerSelected($event)"
           (timeUp)="onTimeUp()"
+          #answerOptions
         ></app-answer-options>
       </div>
 

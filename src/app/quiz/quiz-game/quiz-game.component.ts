@@ -37,6 +37,8 @@ export class QuizGameComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
   private userEmail: string | null = null;
   private quizzes: Quiz[] = [];
+  private responseTimes: number[] = [];
+  private questionStartTime: number = 0;
 
   constructor(
     private quizService: QuizService,
@@ -93,6 +95,7 @@ export class QuizGameComponent implements OnInit, OnDestroy {
   onVideoPaused() {
     console.log('Video paused event received');
     this.isQuestionPhase = true;
+    this.questionStartTime = Date.now(); // Start tracking time when question appears
     console.log('Question phase:', this.isQuestionPhase);
   }
 
@@ -110,13 +113,18 @@ export class QuizGameComponent implements OnInit, OnDestroy {
   onAnswerSelected(selectedIndex: number) {
     if (!this.currentQuiz || !this.userEmail) return;
 
-    const timeToAnswer = this.currentQuiz.timeLimit - (this.answerOptions?.remainingTime || 0);
+    // Calculate actual time taken
+    const timeSpent = (Date.now() - this.questionStartTime) / 1000; // Convert to seconds
+    console.log('Time spent answering:', timeSpent);
+
+    this.responseTimes.push(timeSpent);
+    this.averageResponseTime = this.responseTimes.reduce((a, b) => a + b, 0) / this.responseTimes.length;
 
     const attempt = {
       quizId: this.currentQuiz.id,
       email: this.userEmail,
       selectedAnswer: selectedIndex,
-      timeToAnswer: timeToAnswer
+      timeToAnswer: timeSpent
     };
 
     this.quizService.submitQuizAttempt(attempt).pipe(
@@ -126,14 +134,14 @@ export class QuizGameComponent implements OnInit, OnDestroy {
         if (result.isCorrect) {
           this.currentScore++;
         }
-        this.totalResponseTime += timeToAnswer;
         this.questionsAnswered++;
-        this.averageResponseTime = this.totalResponseTime / this.questionsAnswered;
 
+        // First resume the video
         if (this.videoPlayer && this.videoPlayer.player) {
           this.videoPlayer.player.playVideo();
         }
 
+        // After 10 seconds, pause video and show correct answer
         setTimeout(() => {
           if (this.videoPlayer && this.videoPlayer.player) {
             this.videoPlayer.player.pauseVideo();
@@ -141,6 +149,7 @@ export class QuizGameComponent implements OnInit, OnDestroy {
               this.answerOptions.showCorrectAnswer();
             }
 
+            // Wait for feedback duration, then proceed
             setTimeout(() => {
               if (this.questionsAnswered < this.totalQuestions) {
                 this.loadNextQuiz();
@@ -162,6 +171,10 @@ export class QuizGameComponent implements OnInit, OnDestroy {
 
   onTimeUp() {
     if (this.currentQuiz) {
+      const timeSpent = this.currentQuiz.timeLimit + this.currentQuiz.pauseTimeInSeconds; // Use full time when time is up
+      this.responseTimes.push(timeSpent);
+      this.averageResponseTime = this.responseTimes.reduce((a, b) => a + b, 0) / this.responseTimes.length;
+
       this.onAnswerSelected(-1);
     }
   }

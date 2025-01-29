@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit, OnDestroy } from '@angular/core';
+import {Component, Input, Output, EventEmitter, OnInit, OnDestroy, SimpleChanges} from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 
@@ -37,8 +37,18 @@ export class AnswerOptionsComponent implements OnInit, OnDestroy {
     this.stopTimer();
   }
 
+  resetTimer() {
+    console.log('Resetting timer...');
+    this.stopTimer();
+    this.remainingTime = this.timeLimit + this.pauseTimeInSeconds; // Reset to full time
+    this.startTimer();
+    this.showFeedback = false;
+    this.selectedOptionIndex = -1;
+    this.answerSelected = false;
+  }
+
   private startTimer() {
-    this.remainingTime = this.timeLimit;
+    this.remainingTime = this.timeLimit + this.pauseTimeInSeconds;
     this.timerInterval = setInterval(() => {
       this.remainingTime--;
       if (this.remainingTime <= 0) {
@@ -51,6 +61,7 @@ export class AnswerOptionsComponent implements OnInit, OnDestroy {
   private stopTimer() {
     if (this.timerInterval) {
       clearInterval(this.timerInterval);
+      this.timerInterval = null;
     }
   }
 
@@ -70,11 +81,9 @@ export class AnswerOptionsComponent implements OnInit, OnDestroy {
     }, 3000);
   }
 
-  resetTimer() {
-    this.stopTimer();
-    this.startTimer();
-    this.showFeedback = false;
-    this.selectedOptionIndex = -1;
-    this.answerSelected = false;
+  ngOnChanges(changes: SimpleChanges) {
+    if ((changes['timeLimit'] || changes['pauseTimeInSeconds']) && !changes['timeLimit']?.firstChange) {
+      this.resetTimer();
+    }
   }
 }

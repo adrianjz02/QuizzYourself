@@ -54,7 +54,7 @@ export function makeServer() {
               "The character dies"
             ],
             correctAnswer: "The character fights the boss",
-            timeLimit: 25
+            timeLimit: 15
           }/*,
           {
             id: 2,
@@ -82,7 +82,7 @@ export function makeServer() {
               "RAT4"
             ],
             correctAnswer: "RAT2",
-            timeLimit: 59
+            timeLimit: 15
           }
         ],
         quizAttempts: []
