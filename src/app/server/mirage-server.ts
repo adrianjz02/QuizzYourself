@@ -17,9 +17,9 @@ export function makeServer() {
       // Ajouter un utilisateur par défaut pour la connexion
       server.db.loadData({
         users: [
-          {firstName: 'Adrian', lastName: 'Jimenez', email: 'ad@jz.com', password: 'adjz'},
-          {firstName: 'ad', lastName: 'jz', email: 'ad@jz.com', password: 'adjz'},
-          {firstName: 'ay', lastName: 'ca', email: 'ay@ca.com', password: 'ayca'},
+          {firstName: 'Adrian', lastName: 'Jimenez', email: 'ad@jz.com', pseudonyme: 'adrianjimenez', password: 'adjz'},
+          {firstName: 'ad', lastName: 'jz', email: 'ad@jz.com', pseudonyme: 'adjz', password: 'adjz'},
+          {firstName: 'ay', lastName: 'ca', email: 'ay@ca.com', pseudonyme: 'ayca',  password: 'ayca'},
         ],
         parties_jouees: [
           {email: 'ad@jz.com', totalParties: 100},
@@ -31,10 +31,14 @@ export function makeServer() {
           {email: 'ay@ca.com', bonnesReponses: 72, totalReponses: 90},
         ],
         evolution_scores: [
-          {partieId: 1, email: 'ad@jz.com', score: 80, datePartie: '2025-01-01', tempsMoyenReponse: 1750},
-          {partieId: 2, email: 'ad@jz.com', score: 95, datePartie: '2025-01-02', tempsMoyenReponse: 1850},
-          {partieId: 3, email: 'ad@jz.com', score: 70, datePartie: '2025-01-03', tempsMoyenReponse: 1850},
+          {partieId: 1, email: 'ad@jz.com', score: 0, datePartie: '2025-01-01', tempsMoyenReponse: 1750},
+          {partieId: 2, email: 'ad@jz.com', score: 0, datePartie: '2025-01-02', tempsMoyenReponse: 1850},
+          {partieId: 3, email: 'ad@jz.com', score: 10, datePartie: '2025-01-03', tempsMoyenReponse: 1850},
+          {partieId: 4, email: 'ay@ca.com', score: 0, datePartie: '2025-01-01', tempsMoyenReponse: 1750},
+          {partieId: 5, email: 'ay@ca.com', score: 0, datePartie: '2025-01-02', tempsMoyenReponse: 1850},
+          {partieId: 6, email: 'ay@ca.com', score: 0, datePartie: '2025-01-03', tempsMoyenReponse: 1850},
         ],
+        totalScore: [],
         temps_reponse: [
           {email: 'ad@jz.com', tempsMoyenMs: 1750},
           {email: 'ay@ca.com', tempsMoyenMs: 1800},
@@ -117,6 +121,7 @@ export function makeServer() {
         schema.db['parties_jouees'].insert({email: userData.email, totalParties: 0});
         schema.db['taux_reussite'].insert({email: userData.email, bonnesReponses: 0, totalReponses: 0});
         schema.db['evolution_scores'].insert({partieId: 0, email: userData.email, score: 0, datePartie: ''});
+        schema.db['totalScore'].insert({email: userData.email, totalScore: 0});
         schema.db['temps_reponse'].insert({email: userData.email, tempsMoyenMs: 0});
         schema.db['leaderboard'].insert(defaultLeaderboardData);
         schema.db['achievements'].insert(defaultAchievementsData);
@@ -136,6 +141,19 @@ export function makeServer() {
           return {message: 'Connexion réussie', token: 'fake-jwt-token'};
         }
         return new Response(401, {}, {error: 'Identifiants invalides. Veuillez vous inscrire.'});
+      });
+
+      this.get('/get-user/:email', (schema, request) => {
+        let email = request.params['email'];
+
+        // Recherche de l'utilisateur avec l'email donné
+        let user = schema.db['users'].findBy({ email });
+
+        if (user) {
+          return { pseudonyme: user.pseudonyme };
+        } else {
+          return new Response(404, {}, { error: "Utilisateur non trouvé" });
+        }
       });
 
       this.get("/parties_jouees", (schema, request) => {
@@ -164,6 +182,24 @@ export function makeServer() {
         }
         return new Response(404, {}, {error: "Utilisateur non trouvé"});
       });
+
+      // 🚀 Requête Mirage pour initialiser totalScore dynamiquement
+      this.post('/init-total-score', (schema) => {
+        let scores = schema.db['evolution_scores'] as { email: string; score: number }[];
+
+        let totalScores: Record<string, number> = scores.reduce((acc, { email, score }) => {
+          acc[email] = (acc[email] || 0) + score; // Addition des scores par email
+          return acc;
+        }, {} as Record<string, number>);
+
+        let totalScoreArray = Object.entries(totalScores).map(([email, totalScore]) => ({ email, totalScore }));
+
+        schema.db['totalScore'].remove();
+        schema.db['totalScore'].insert(totalScoreArray);
+
+        return { message: 'Table totalScore mise à jour avec succès', totalScore: totalScoreArray };
+      });
+
 
       this.get("/temps_reponse", (schema, request) => {
         const email = request.queryParams['email'];

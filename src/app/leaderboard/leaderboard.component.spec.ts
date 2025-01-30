@@ -1,18 +1,18 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {GamificationComponent} from './gamification.component';
+import {LeaderboardComponent} from './leaderboard.component';
 
 describe('GamificationComponent', () => {
-  let component: GamificationComponent;
-  let fixture: ComponentFixture<GamificationComponent>;
+  let component: LeaderboardComponent;
+  let fixture: ComponentFixture<LeaderboardComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [GamificationComponent]
+      imports: [LeaderboardComponent]
     })
       .compileComponents();
 
-    fixture = TestBed.createComponent(GamificationComponent);
+    fixture = TestBed.createComponent(LeaderboardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

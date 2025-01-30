@@ -1,0 +1,30 @@
+/* Style global du tableau */
+.table {
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
+}
+
+/* Style des en-têtes */
+thead {
+  background-color: #212529; /* Fond foncé */
+  color: #212529; /* Texte blanc */
+}
+
+/* Style des lignes */
+tbody tr {
+  background: transparent !important; /* Supprime le background */
+  border-top: 2px solid #ffffff10; /* Ligne de séparation */
+  border-bottom: 2px solid #ffffff10; /* Ligne de séparation */
+}
+
+/* Style du texte dans les cellules */
+td, th {
+  text-align: center;
+  padding: 15px;
+}
+
+/* Effet de survol */
+tbody tr:hover {
+  background: rgba(255, 255, 255, 0.05); /* Léger éclaircissement */
+}

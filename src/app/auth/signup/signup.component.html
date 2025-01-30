@@ -16,6 +16,14 @@
   </mat-form-field>
 
   <mat-form-field class="authForm">
+    <mat-label>Pseudo</mat-label>
+    <input matInput placeholder="Ex: adrianjz02" formControlName="pseudonyme">
+    @if (authForm.hasError('required', 'pseudonyme')) {
+      <mat-error>Le pseudonyme est requis.</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field class="authForm">
     <mat-label>Email</mat-label>
     <input matInput placeholder="Ex: Adrianjimenez@gmail.com" formControlName="email">
     @if (authForm.hasError('email', 'email')) {

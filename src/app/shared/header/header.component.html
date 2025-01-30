@@ -26,7 +26,10 @@
             <a class="nav-link text-white active" aria-current="page" routerLink="/accueil">Accueil</a>
           </li>
           <li class="nav-item" *ngIf="isLoggedIn">
-            <a class="nav-link text-white" routerLink="/quiz/quiz-main">Quizzes</a>
+            <a class="nav-link text-white ms-3" routerLink="/quiz/quiz-main">Quizzes</a>
+          </li>
+          <li class="nav-item ms-3">
+            <a class="nav-link text-white" routerLink="/leaderboard">Leaderboard</a>
           </li>
           <li class="nav-item ms-3" *ngIf="!isLoggedIn">
             <a class="nav-link text-white" routerLink="/auth/signup">Inscription</a>

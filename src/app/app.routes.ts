@@ -5,9 +5,7 @@ import {LoginComponent} from './auth/login/login.component';
 import {SignupComponent} from './auth/signup/signup.component';
 import {CommunityComponent} from './community/community.component';
 import {ProposeClipComponent} from './community/propose-clip/propose-clip.component';
-import {GamificationComponent} from './gamification/gamification.component';
-import {AchievementsComponent} from './gamification/achievements/achievements.component';
-import {LeaderboardComponent} from './gamification/leaderboard/leaderboard.component';
+import {LeaderboardComponent} from './leaderboard/leaderboard.component';
 import {QuizComponent} from './quiz/quiz.component';
 import {QuizGameComponent} from './quiz/quiz-game/quiz-game.component';
 import {TestFrameworkComponent} from './test-framework/test-framework.component';
@@ -32,11 +30,9 @@ export const routes: Routes = [
     ]
   },
   {
-    path: 'gamification',
-    component: GamificationComponent,
+    path: 'leaderboard',
+    component: LeaderboardComponent,
     children: [
-      {path: 'achievements', component: AchievementsComponent},
-      {path: 'leaderboard', component: LeaderboardComponent},
     ]
   },
   {

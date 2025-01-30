@@ -1,0 +1,22 @@
+<div class="container mt-4">
+  <h2 class="text-center text-light">
+    🏆 <span class="fw-bold">Leaderboard</span>
+  </h2>
+
+  <table class="table table-hover">
+    <thead>
+    <tr>
+      <th>#</th>
+      <th>Pseudonyme</th>
+      <th>Score Total</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let player of leaderboardWithPseudonyms; let i = index">
+      <td>{{ i + 1 }}</td>
+      <td>{{ player.pseudonyme }}</td>
+      <td>{{ player.totalScore }}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
