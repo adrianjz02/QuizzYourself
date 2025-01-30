@@ -28,6 +28,7 @@ export class VideoPlayerComponent implements OnInit, OnDestroy, OnChanges {
   protected videoId: string = '';
   private isQuestionTime = false;
   private apiLoaded = false;
+  private videoStarted = false;
 
   constructor(private sanitizer: DomSanitizer) {}
 
@@ -39,19 +40,19 @@ export class VideoPlayerComponent implements OnInit, OnDestroy, OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['videoUrl'] && !changes['videoUrl'].firstChange) {
-      // Reset state
       this.isQuestionTime = false;
+      this.videoStarted = false;
 
-      // Update video
       if (this.videoUrl) {
         this.videoId = this.extractVideoId(this.videoUrl);
         console.log('New video ID:', this.videoId);
 
         if (this.player) {
-          // If player exists, load new video
-          this.player.loadVideoById(this.videoId);
+          this.player.loadVideoById({
+            videoId: this.videoId,
+            playerVars: this.getPlayerConfig()
+          });
         } else {
-          // If no player, initialize
           this.initializeVideo();
         }
       }
@@ -62,6 +63,18 @@ export class VideoPlayerComponent implements OnInit, OnDestroy, OnChanges {
     if (this.player) {
       this.player.destroy();
     }
+  }
+
+  private getPlayerConfig() {
+    return {
+      controls: 0,  // Hide controls
+      disablekb: 1, // Disable keyboard controls
+      fs: 0,        // Disable fullscreen
+      modestbranding: 1,
+      playsinline: 1,
+      rel: 0,       // Don't show related videos
+      enablejsapi: 1
+    };
   }
 
   private initializeVideo() {
@@ -101,25 +114,37 @@ export class VideoPlayerComponent implements OnInit, OnDestroy, OnChanges {
 
       this.player = new window.YT.Player('youtube-player', {
         videoId: this.videoId,
-        playerVars: {
-          enablejsapi: 1,
-          controls: 1,
-          modestbranding: 1
-        },
+        playerVars: this.getPlayerConfig(),
         events: {
           onStateChange: (event: any) => this.onPlayerStateChange(event),
-          onReady: () => this.onPlayerReady()
+          onReady: () => this.onPlayerReady(),
+          onError: (event: any) => this.onPlayerError(event)
         }
       });
+
+      // Add click event listener to prevent interaction
+      const iframe = document.querySelector('#youtube-player') as HTMLIFrameElement;
+      if (iframe) {
+        iframe.style.pointerEvents = 'none';
+      }
     }
   }
 
   private onPlayerReady() {
     console.log('Player ready');
-    this.player.playVideo();
+    if (!this.videoStarted) {
+      this.videoStarted = true;
+      this.player.playVideo();
+    }
   }
 
   private onPlayerStateChange(event: any) {
+    // Prevent manual pausing/playing
+    if (event.data === window.YT.PlayerState.PAUSED && !this.isQuestionTime) {
+      this.player.playVideo();
+      return;
+    }
+
     if (event.data === window.YT.PlayerState.PLAYING) {
       const checkTime = setInterval(() => {
         const currentTime = this.player.getCurrentTime();
@@ -129,10 +154,15 @@ export class VideoPlayerComponent implements OnInit, OnDestroy, OnChanges {
           this.videoPaused.emit();
           clearInterval(checkTime);
         }
-      }, 1000);
+      }, 100); // Check more frequently for better precision
     } else if (event.data === window.YT.PlayerState.ENDED) {
       this.videoEnded.emit();
     }
+  }
+
+  private onPlayerError(event: any) {
+    console.error('YouTube player error:', event);
+    // Handle errors appropriately
   }
 
   private extractVideoId(url: string): string {

@@ -9,7 +9,7 @@
         (videoEnded)="onVideoEnded()"
       ></app-video-player>
 
-      <div class="question-container">
+      <div class="question-container" [class.visible]="isQuestionPhase" [class.hidden]="!isQuestionPhase">
         <app-answer-options
           [options]="currentQuiz.options"
           [timeLimit]="currentQuiz.timeLimit"
