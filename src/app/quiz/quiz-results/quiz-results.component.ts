@@ -41,10 +41,12 @@ export class QuizResultsComponent {
   }
 
   playAgain() {
-    this.router.navigate(['/quiz-game']);
+    window.location.reload();
   }
 
   goToHome() {
-    this.router.navigate(['/accueil']);
+    this.router.navigate(['/accueil']).then(() => {
+      window.location.reload();
+    });
   }
 }
