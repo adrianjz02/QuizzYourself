@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { QuizService, Quiz, QuizStats } from '../service/services.service';
 import { AuthService } from '../../auth/services/auth.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { CommonModule } from '@angular/common';
@@ -39,11 +39,13 @@ export class QuizGameComponent implements OnInit, OnDestroy {
   private quizzes: Quiz[] = [];
   private responseTimes: number[] = [];
   private questionStartTime: number = 0;
+  private category?: string;
 
   constructor(
     private quizService: QuizService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
@@ -52,7 +54,13 @@ export class QuizGameComponent implements OnInit, OnDestroy {
       this.router.navigate(['/auth/login']);
       return;
     }
-    this.loadQuizzes();
+
+    this.route.params.pipe(
+      takeUntil(this.destroy$)
+    ).subscribe(params => {
+      this.category = params['category'];
+      this.loadQuizzes();
+    });
   }
 
   ngOnDestroy() {
@@ -61,7 +69,7 @@ export class QuizGameComponent implements OnInit, OnDestroy {
   }
 
   private loadQuizzes() {
-    this.quizService.getQuizzes().pipe(
+    this.quizService.getQuizzes(this.category || undefined).pipe(
       takeUntil(this.destroy$)
     ).subscribe({
       next: (quizzes) => {
@@ -70,7 +78,7 @@ export class QuizGameComponent implements OnInit, OnDestroy {
         if (quizzes.length > 0) {
           this.loadNextQuiz();
         } else {
-          console.error('No quizzes available');
+          console.error('No quizzes available', this.category ? `for category: ${this.category}` : '');
           this.router.navigate(['/accueil']);
         }
       },
@@ -95,7 +103,7 @@ export class QuizGameComponent implements OnInit, OnDestroy {
   onVideoPaused() {
     console.log('Video paused event received');
     this.isQuestionPhase = true;
-    this.questionStartTime = Date.now(); // Start tracking time when question appears
+    this.questionStartTime = Date.now();
     console.log('Question phase:', this.isQuestionPhase);
   }
 
@@ -113,8 +121,7 @@ export class QuizGameComponent implements OnInit, OnDestroy {
   onAnswerSelected(selectedIndex: number) {
     if (!this.currentQuiz || !this.userEmail) return;
 
-    // Calculate actual time taken
-    const timeSpent = (Date.now() - this.questionStartTime) / 1000; // Convert to seconds
+    const timeSpent = (Date.now() - this.questionStartTime) / 1000;
     console.log('Time spent answering:', timeSpent);
 
     this.responseTimes.push(timeSpent);
@@ -136,12 +143,10 @@ export class QuizGameComponent implements OnInit, OnDestroy {
         }
         this.questionsAnswered++;
 
-        // First resume the video
         if (this.videoPlayer && this.videoPlayer.player) {
           this.videoPlayer.player.playVideo();
         }
 
-        // After 10 seconds, pause video and show correct answer
         setTimeout(() => {
           if (this.videoPlayer && this.videoPlayer.player) {
             this.videoPlayer.player.pauseVideo();
@@ -149,7 +154,6 @@ export class QuizGameComponent implements OnInit, OnDestroy {
               this.answerOptions.showCorrectAnswer();
             }
 
-            // Wait for feedback duration, then proceed
             setTimeout(() => {
               if (this.questionsAnswered < this.totalQuestions) {
                 this.loadNextQuiz();
@@ -171,7 +175,7 @@ export class QuizGameComponent implements OnInit, OnDestroy {
 
   onTimeUp() {
     if (this.currentQuiz) {
-      const timeSpent = this.currentQuiz.timeLimit + this.currentQuiz.pauseTimeInSeconds; // Use full time when time is up
+      const timeSpent = this.currentQuiz.timeLimit + this.currentQuiz.pauseTimeInSeconds;
       this.responseTimes.push(timeSpent);
       this.averageResponseTime = this.responseTimes.reduce((a, b) => a + b, 0) / this.responseTimes.length;
 

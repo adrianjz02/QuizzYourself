@@ -59,12 +59,12 @@ export function makeServer() {
             ],
             correctAnswer: "The character fights the boss",
             timeLimit: 15
-          }/*,
+          },
           {
-            id: 2,
-            videoUrl: "https://www.youtube.com/shorts/64xjmKWVo0c",
+            id: 3,
+            videoUrl: "https://www.youtube.com/watch?v=rPAxrIrw1oU",
             category: "Sport",
-            pauseTimeInSeconds: 2,
+            pauseTimeInSeconds: 14,
             options: [
               "The guy send his ball in a tree",
               "The guy destroys his little hoop",
@@ -73,7 +73,7 @@ export function makeServer() {
             ],
             correctAnswer: "The guy scores a basket in another hoop",
             timeLimit: 20
-          }*/,
+          },
           {
             id: 2,
             videoUrl: "https://www.youtube.com/watch?v=qvC2bVa7UX4&ab_channel=squewe",
@@ -248,7 +248,6 @@ export function makeServer() {
         if (category) {
           return schema.db['quizzes'].filter(quiz => quiz.category === category);
         }
-        console.log('Serving quizzes:', schema.db['quizzes']);
         return schema.db['quizzes'];
       });
 

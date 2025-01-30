@@ -40,6 +40,7 @@ export const routes: Routes = [
     component: QuizComponent,
     children: [
       {path: 'quiz-main', component: QuizGameComponent},
+      {path: 'quiz-main/:category', component: QuizGameComponent}, // New route with category parameter
     ]
   },
   {
