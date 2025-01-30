@@ -28,24 +28,20 @@
 
 .question-container.visible {
   background-color: #f5f5f5;
-  color: inherit;
 }
 
 .question-container.visible ::ng-deep .timer,
 .question-container.visible ::ng-deep .option-button {
-  color: inherit;
-  background-color: #fff;
+  color: #333;
 }
 
 .question-container.hidden {
   background-color: #212529;
-  color: #212529;
 }
 
 .question-container.hidden ::ng-deep .timer,
 .question-container.hidden ::ng-deep .option-button {
   color: #212529;
-  background-color: #212529;
   border-color: #212529;
 }
 
