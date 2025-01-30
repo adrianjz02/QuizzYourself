@@ -49,7 +49,7 @@ export class QuizGameComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.userEmail = this.authService.getUserEmail();
     if (!this.userEmail) {
-      this.router.navigate(['/login']);
+      this.router.navigate(['/auth/login']);
       return;
     }
     this.loadQuizzes();
