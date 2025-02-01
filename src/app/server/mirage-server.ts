@@ -117,9 +117,6 @@ export function makeServer() {
         schema.db['users'].insert(userData);
         schema.db['parties_jouees'].insert({email: userData.email, totalParties: 0});
         schema.db['taux_reussite'].insert({email: userData.email, bonnesReponses: 0, totalReponses: 0});
-        schema.db['evolution_scores'].insert({partieId: 0, email: userData.email, score: 0, datePartie: ''});
-        schema.db['totalScore'].insert({email: userData.email, totalScore: 0});
-        schema.db['temps_reponse'].insert({email: userData.email, tempsMoyenMs: 0});
         schema.db['quizAttempts'].insert({
           email: userData.email,
           attempts: []
@@ -127,6 +124,61 @@ export function makeServer() {
 
         return {message: 'Inscription réussie', user: userData};
       });
+
+      this.post("/update-game", (schema, request) => {
+        // On récupère les informations de la partie dans le body de la requête
+        const {
+          email,
+          score,
+          datePartie,
+          tempsMoyenReponse,
+          bonnesReponses,  // nombre de réponses correctes obtenues lors de la partie
+          totalReponses    // nombre total de réponses lors de la partie
+        } = JSON.parse(request.requestBody);
+
+        // 1. Mise à jour du nombre de parties jouées dans la table parties_jouees
+        let userParties = schema.db["parties_jouees"].findBy({ email });
+        if (userParties) {
+          // Incrémentation du total de parties
+          const updatedParties = userParties.totalParties + 1;
+          schema.db["parties_jouees"].update({ email }, { ...userParties, totalParties: updatedParties });
+        } else {
+          // Si l'utilisateur n'existe pas dans parties_jouees, on l'ajoute avec 1 partie jouée
+          schema.db["parties_jouees"].insert({ email, totalParties: 1 });
+        }
+
+        // 2. Enregistrement de la partie dans evolution_scores
+        // On calcule un nouvel identifiant pour la partie (on ajoute 1 au max existant)
+        let newPartieId = 1;
+        if (schema.db["evolution_scores"].length > 0) {
+          newPartieId = Math.max(...schema.db["evolution_scores"].map(s => s.partieId)) + 1;
+        }
+        schema.db["evolution_scores"].insert({
+          partieId: newPartieId,
+          email,
+          score,
+          datePartie,
+          tempsMoyenReponse
+        });
+
+        // 3. Mise à jour du taux de réussite dans taux_reussite
+        let userTaux = schema.db["taux_reussite"].findBy({ email });
+        if (userTaux) {
+          const updatedBonnesReponses = userTaux.bonnesReponses + bonnesReponses;
+          const updatedTotalReponses = userTaux.totalReponses + totalReponses;
+          schema.db["taux_reussite"].update({ email }, {
+            ...userTaux,
+            bonnesReponses: updatedBonnesReponses,
+            totalReponses: updatedTotalReponses
+          });
+        } else {
+          // Si l'utilisateur n'existe pas dans taux_reussite, on l'initialise avec les valeurs de la partie
+          schema.db["taux_reussite"].insert({ email, bonnesReponses, totalReponses });
+        }
+
+        return { message: "Partie mise à jour avec succès" };
+      });
+
 
       // Existing routes...
       this.post('/login', (schema, request) => {

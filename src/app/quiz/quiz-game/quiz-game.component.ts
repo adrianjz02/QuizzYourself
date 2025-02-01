@@ -196,5 +196,9 @@ export class QuizGameComponent implements OnInit, OnDestroy {
       successRate: (this.currentScore / this.totalQuestions) * 100
     };
     this.quizService.updateQuizStats(results);
+    this.quizService.updateGameResults(this.userEmail, results).subscribe({
+      next: (response) => console.log('Mise à jour réussie:', response),
+      error: (error) => console.error('Erreur lors de la mise à jour:', error)
+    });
   }
 }

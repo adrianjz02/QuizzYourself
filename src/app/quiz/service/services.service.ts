@@ -82,4 +82,20 @@ export class QuizService {
   getQuizStatsAsObservable(): Observable<QuizStats | null> {
     return this.quizStatsSubject.asObservable();
   }
+
+  updateGameResults(email: string | null, stats: QuizStats): Observable<any> {
+    const payload = {
+      email: email,
+      score: stats.score,
+      datePartie: new Date().toISOString(),
+      // Ici, on considère averageResponseTime comme le temps moyen de réponse (en ms par exemple)
+      tempsMoyenReponse: stats.averageResponseTime*1000,
+      // Mapping pour le taux de réussite : on utilise correctAnswers et totalQuestions
+      bonnesReponses: stats.correctAnswers,
+      totalReponses: stats.totalQuestions
+    };
+
+    console.log('Envoi du payload vers /api/update-game:', payload);
+    return this.http.post<any>(`${this.apiUrl}/update-game`, payload);
+  }
 }
