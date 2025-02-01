@@ -2,7 +2,6 @@ import {Component, ViewChild} from '@angular/core';
 import {BaseChartDirective} from 'ng2-charts';
 import {ChartConfiguration, ChartData} from 'chart.js';
 import {GraphService} from '../services/graph-service.service';
-import {auto} from '@popperjs/core';
 
 @Component({
   selector: 'app-stats-parties-jouees',

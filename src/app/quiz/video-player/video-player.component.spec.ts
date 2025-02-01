@@ -1,5 +1,5 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { VideoPlayerComponent } from './video-player.component';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {VideoPlayerComponent} from './video-player.component';
 
 describe('VideoPlayerComponent', () => {
   let component: VideoPlayerComponent;
@@ -7,7 +7,7 @@ describe('VideoPlayerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ VideoPlayerComponent ]
+      declarations: [VideoPlayerComponent]
     })
       .compileComponents();
 

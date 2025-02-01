@@ -1,1 +1,62 @@
 <router-outlet></router-outlet>
+<div class="container mt-5 mb-5">
+  <div class="row">
+    <!-- Profil utilisateur -->
+    <div class="col-md-4">
+      <div class="card bg-dark text-light text-center shadow">
+        <div class="card-body">
+          <img src="https://bootdey.com/img/Content/avatar/avatar7.png" class="rounded-circle img-fluid mb-3" width="120" alt="">
+          <h4>{{ userProfile.user.firstName }} {{ userProfile.user.lastName }}</h4>
+          <p class="text-muted">&#64;{{ userProfile.user.pseudonyme }}</p>
+          <button class="btn btn-outline-light btn-sm">Modifier</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Infos + Stats -->
+    <div class="col-md-8">
+      <div class="card bg-dark text-light shadow">
+        <div class="card-body">
+          <h5 class="border-bottom pb-2">Informations</h5>
+          <p><strong>Email:</strong> {{ userProfile.user.email }}</p>
+
+          <h5 class="border-bottom pb-2 mt-4">Statistiques</h5>
+          <p><strong>Parties jouées :</strong> {{ userProfile.partiesJouees.totalParties }}</p>
+          <p><strong>Score total :</strong> {{ userProfile.totalScore.totalScore }}</p>
+          <p><strong>Taux de réussite :</strong>
+            {{ (userProfile.tauxReussite.bonnesReponses / userProfile.tauxReussite.totalReponses) * 100 | number:'1.0-2' }} %
+          </p>
+          <p><strong>Temps moyen de réponse :</strong> {{ userProfile.tempsReponse.tempsMoyenMs }} ms</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bloc Evolution des Scores -->
+  <div class="row mt-4">
+    <div class="col-12">
+      <div class="card bg-dark text-light shadow">
+        <div class="card-body">
+          <h5 class="border-bottom pb-2">Évolution des Scores</h5>
+          <table class="table table-dark table-striped mt-3">
+            <thead>
+            <tr>
+              <th>Date</th>
+              <th>Score</th>
+              <th>Temps Moyen Réponse (ms)</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let score of userProfile.evolutionScores">
+              <td>{{ score.datePartie }}</td>
+              <td>{{ score.score }}</td>
+              <td>{{ score.tempsMoyenReponse }}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

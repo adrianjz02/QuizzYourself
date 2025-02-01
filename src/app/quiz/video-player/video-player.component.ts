@@ -1,7 +1,7 @@
 // video-player.component.ts
-import { Component, Input, Output, EventEmitter, OnInit, OnDestroy, OnChanges, SimpleChanges } from '@angular/core';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { CommonModule } from '@angular/common';
+import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges} from '@angular/core';
+import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
+import {CommonModule} from '@angular/common';
 
 declare global {
   interface Window {
@@ -30,7 +30,8 @@ export class VideoPlayerComponent implements OnInit, OnDestroy, OnChanges {
   private apiLoaded = false;
   private videoStarted = false;
 
-  constructor(private sanitizer: DomSanitizer) {}
+  constructor(private sanitizer: DomSanitizer) {
+  }
 
   ngOnInit() {
     if (this.videoUrl) {

@@ -32,8 +32,7 @@ export const routes: Routes = [
   {
     path: 'leaderboard',
     component: LeaderboardComponent,
-    children: [
-    ]
+    children: []
   },
   {
     path: 'quiz',

@@ -8,8 +8,7 @@ export function makeServer() {
       taux_reussite: Model,
       evolution_scores: Model,
       temps_reponse: Model,
-      leaderboard: Model,
-      achievement: Model,
+      totalScore: Model,
       quizzes: Model,
       quizAttempts: Model
     },
@@ -19,12 +18,12 @@ export function makeServer() {
         users: [
           {firstName: 'Adrian', lastName: 'Jimenez', email: 'ad@jz.com', pseudonyme: 'adrianjimenez', password: 'adjz'},
           {firstName: 'ad', lastName: 'jz', email: 'ad@jz.com', pseudonyme: 'adjz', password: 'adjz'},
-          {firstName: 'ay', lastName: 'ca', email: 'ay@ca.com', pseudonyme: 'ayca',  password: 'ayca'},
+          {firstName: 'ay', lastName: 'ca', email: 'ay@ca.com', pseudonyme: 'ayca', password: 'ayca'},
         ],
         parties_jouees: [
-          {email: 'ad@jz.com', totalParties: 100},
-          {email: 'ay@ca.com', totalParties: 50},
-          {email: 'ma@gu.com', totalParties: 25},
+          {email: 'ad@jz.com', totalParties: 3},
+          {email: 'ay@ca.com', totalParties: 3},
+          {email: 'ma@gu.com', totalParties: 0},
         ],
         taux_reussite: [
           {email: 'ad@jz.com', bonnesReponses: 85, totalReponses: 100},
@@ -43,8 +42,6 @@ export function makeServer() {
           {email: 'ad@jz.com', tempsMoyenMs: 1750},
           {email: 'ay@ca.com', tempsMoyenMs: 1800},
         ],
-        leaderboard: [],
-        achievements: [],
         quizzes: [
           {
             id: 1,
@@ -123,8 +120,6 @@ export function makeServer() {
         schema.db['evolution_scores'].insert({partieId: 0, email: userData.email, score: 0, datePartie: ''});
         schema.db['totalScore'].insert({email: userData.email, totalScore: 0});
         schema.db['temps_reponse'].insert({email: userData.email, tempsMoyenMs: 0});
-        schema.db['leaderboard'].insert(defaultLeaderboardData);
-        schema.db['achievements'].insert(defaultAchievementsData);
         schema.db['quizAttempts'].insert({
           email: userData.email,
           attempts: []
@@ -143,16 +138,42 @@ export function makeServer() {
         return new Response(401, {}, {error: 'Identifiants invalides. Veuillez vous inscrire.'});
       });
 
+      this.get("/profile/:email", (schema, request) => {
+        let email = request.params['email'];
+
+        // Récupérer les données de l'utilisateur
+        let user = schema.db['users'].findBy({email});
+        let partiesJouees = schema.db['parties_jouees'].findBy({email});
+        let tauxReussite = schema.db['taux_reussite'].findBy({email});
+        let totalScore = schema.db['totalScore'].findBy({email});
+        let tempsReponse = schema.db['temps_reponse'].findBy({email});
+        let evolutionScores = schema.db['evolution_scores'].filter(score => score.email === email);
+
+        if (!user) {
+          return new Response(404, {}, {error: "Utilisateur non trouvé"});
+        }
+
+        return {
+          user,
+          partiesJouees: partiesJouees || {totalParties: 0},
+          tauxReussite: tauxReussite || {bonnesReponses: 0, totalReponses: 0},
+          totalScore: totalScore || {totalScore: 0},
+          tempsReponse: tempsReponse || {tempsMoyenMs: 0},
+          evolutionScores
+        };
+      });
+
+
       this.get('/get-user/:email', (schema, request) => {
         let email = request.params['email'];
 
         // Recherche de l'utilisateur avec l'email donné
-        let user = schema.db['users'].findBy({ email });
+        let user = schema.db['users'].findBy({email});
 
         if (user) {
-          return { pseudonyme: user.pseudonyme };
+          return {pseudonyme: user.pseudonyme};
         } else {
-          return new Response(404, {}, { error: "Utilisateur non trouvé" });
+          return new Response(404, {}, {error: "Utilisateur non trouvé"});
         }
       });
 
@@ -187,17 +208,17 @@ export function makeServer() {
       this.post('/init-total-score', (schema) => {
         let scores = schema.db['evolution_scores'] as { email: string; score: number }[];
 
-        let totalScores: Record<string, number> = scores.reduce((acc, { email, score }) => {
+        let totalScores: Record<string, number> = scores.reduce((acc, {email, score}) => {
           acc[email] = (acc[email] || 0) + score; // Addition des scores par email
           return acc;
         }, {} as Record<string, number>);
 
-        let totalScoreArray = Object.entries(totalScores).map(([email, totalScore]) => ({ email, totalScore }));
+        let totalScoreArray = Object.entries(totalScores).map(([email, totalScore]) => ({email, totalScore}));
 
         schema.db['totalScore'].remove();
         schema.db['totalScore'].insert(totalScoreArray);
 
-        return { message: 'Table totalScore mise à jour avec succès', totalScore: totalScoreArray };
+        return {message: 'Table totalScore mise à jour avec succès', totalScore: totalScoreArray};
       });
 
 
@@ -332,7 +353,9 @@ export function makeServer() {
         const attempts = userAttempts.attempts;
         const totalAttempts = attempts.length;
         const correctAnswers = attempts.filter((a: { isCorrect: any; }) => a.isCorrect).length;
-        const averageTimeToAnswer = attempts.reduce((acc: any, curr: { timeToAnswer: any; }) => acc + curr.timeToAnswer, 0) / totalAttempts;
+        const averageTimeToAnswer = attempts.reduce((acc: any, curr: {
+          timeToAnswer: any;
+        }) => acc + curr.timeToAnswer, 0) / totalAttempts;
         const successRate = (correctAnswers / totalAttempts) * 100;
 
         return {

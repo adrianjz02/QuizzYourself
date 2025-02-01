@@ -1,9 +1,9 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { QuizResultsComponent } from './quiz-results.component';
-import { RouterTestingModule } from '@angular/router/testing';
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {QuizResultsComponent} from './quiz-results.component';
+import {RouterTestingModule} from '@angular/router/testing';
+import {MatCardModule} from '@angular/material/card';
+import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
 
 describe('QuizResultsComponent', () => {
   let component: QuizResultsComponent;
@@ -17,7 +17,7 @@ describe('QuizResultsComponent', () => {
         MatButtonModule,
         MatIconModule
       ],
-      declarations: [ QuizResultsComponent ]
+      declarations: [QuizResultsComponent]
     })
       .compileComponents();
 

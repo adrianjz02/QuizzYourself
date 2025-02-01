@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {BehaviorSubject, Observable, tap} from 'rxjs';
 
 export interface Quiz {
   id: number;
@@ -42,7 +42,8 @@ export class QuizService {
   private currentQuizSubject = new BehaviorSubject<Quiz | null>(null);
   private quizStatsSubject = new BehaviorSubject<QuizStats | null>(null);
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+  }
 
   getQuizzes(category?: string): Observable<Quiz[]> {
     let url = `${this.apiUrl}/quizzes`;

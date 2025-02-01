@@ -26,7 +26,9 @@ export class LeaderboardComponent implements OnInit {
     this.leaderboardService.getTotalScores().subscribe({
       next: (response) => {
         // Trier les scores par ordre décroissant
-        this.leaderboard = response.totalScore.sort((a: { totalScore: number; }, b: { totalScore: number; }) => b.totalScore - a.totalScore);
+        this.leaderboard = response.totalScore.sort((a: { totalScore: number; }, b: {
+          totalScore: number;
+        }) => b.totalScore - a.totalScore);
 
         // Récupérer les pseudonymes en parallèle
         const requests = this.leaderboard.map(player =>

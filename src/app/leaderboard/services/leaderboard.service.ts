@@ -11,6 +11,7 @@ export class LeaderboardService {
 
   constructor(private http: HttpClient) {
   }
+
   // Récupère les scores des joueurs
   getTotalScores(): Observable<any> {
     return this.http.post<any>(this.apiUrl, {});

@@ -1,6 +1,6 @@
-import {Component, Input, Output, EventEmitter, OnInit, OnDestroy, SimpleChanges} from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { CommonModule } from '@angular/common';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output, SimpleChanges} from '@angular/core';
+import {MatButtonModule} from '@angular/material/button';
+import {CommonModule} from '@angular/common';
 
 @Component({
   selector: 'app-answer-options',

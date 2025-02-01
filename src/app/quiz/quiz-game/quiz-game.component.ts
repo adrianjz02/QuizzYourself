@@ -1,13 +1,13 @@
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
-import { QuizService, Quiz, QuizStats } from '../service/services.service';
-import { AuthService } from '../../auth/services/auth.service';
-import { Router, ActivatedRoute } from '@angular/router';
-import { Subject, takeUntil } from 'rxjs';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { CommonModule } from '@angular/common';
-import { VideoPlayerComponent } from '../video-player/video-player.component';
-import { AnswerOptionsComponent } from '../answer-options/answer-options.component';
-import { QuizResultsComponent } from '../quiz-results/quiz-results.component';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Quiz, QuizService, QuizStats} from '../service/services.service';
+import {AuthService} from '../../auth/services/auth.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Subject, takeUntil} from 'rxjs';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {CommonModule} from '@angular/common';
+import {VideoPlayerComponent} from '../video-player/video-player.component';
+import {AnswerOptionsComponent} from '../answer-options/answer-options.component';
+import {QuizResultsComponent} from '../quiz-results/quiz-results.component';
 
 @Component({
   selector: 'app-quiz-game',
@@ -46,7 +46,8 @@ export class QuizGameComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private router: Router,
     private route: ActivatedRoute
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
     this.userEmail = this.authService.getUserEmail();

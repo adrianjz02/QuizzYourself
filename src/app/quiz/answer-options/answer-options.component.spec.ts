@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { AnswerOptionsComponent } from './answer-options.component';
-import { MatButtonModule } from '@angular/material/button';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {AnswerOptionsComponent} from './answer-options.component';
+import {MatButtonModule} from '@angular/material/button';
 
 describe('AnswerOptionsComponent', () => {
   let component: AnswerOptionsComponent;
@@ -11,7 +11,7 @@ describe('AnswerOptionsComponent', () => {
       imports: [
         MatButtonModule
       ],
-      declarations: [ AnswerOptionsComponent ]
+      declarations: [AnswerOptionsComponent]
     })
       .compileComponents();
 
