@@ -9,7 +9,7 @@
               [class.selected]="selectedOptionIndex === i"
               [class.correct]="showFeedback && option === correctAnswer"
               [class.incorrect]="showFeedback && selectedOptionIndex === i && option !== correctAnswer"
-              [disabled]="disabled || answerSelected || showFeedback"
+              [disabled]="disabled || answerSelected || showFeedback || remainingTime <= 0"
               (click)="selectOption(i)"
               class="option-button">
         {{ option }}

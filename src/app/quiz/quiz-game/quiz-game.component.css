@@ -1,59 +1,66 @@
-.quiz-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-}
+  .quiz-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
 
-.quiz-content {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
+  .quiz-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    align-items: center;
+    max-width: 1000px; /* Increased from 800px */
+    margin: 0 auto;
+  }
 
-.video-container {
-  width: 100%;
-  max-width: 800px;
-  margin: 0 auto;
-}
+  .video-container {
+    width: 100%;
+    padding-bottom: 45%; /* Reduced from 56.25% for smaller height */
+    position: relative;
+  }
 
-.question-container {
-  margin-top: 10px;
-  padding: 15px;
-  border-radius: 8px;
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
-  transition: all 0.3s ease;
-}
+  .question-container {
+    width: 80%; /* Reduced from 100% */
+    padding: 12px;
+    margin-top: 10px;
+    border-radius: 8px;
+    max-width: 600px; /* Reduced from 800px */
+    margin-left: auto;
+    margin-right: auto;
+    transition: all 0.3s ease;
+  }
 
-.question-container.visible {
-  background-color: #f5f5f5;
-}
+  /* Rest of the styles remain unchanged */
 
-.question-container.visible ::ng-deep .timer,
-.question-container.visible ::ng-deep .option-button {
-  color: #333;
-}
+  .question-container.visible {
+    background-color: #f5f5f5;
+  }
 
-.question-container.hidden {
-  background-color: #212529;
-}
+  .question-container.visible ::ng-deep .timer,
+  .question-container.visible ::ng-deep .option-button {
+    color: #333;
+  }
 
-.question-container.hidden ::ng-deep .timer,
-.question-container.hidden ::ng-deep .option-button {
-  color: #212529;
-  border-color: #212529;
-}
+  .question-container.hidden {
+    background-color: #212529;
+  }
 
-.quiz-progress {
-  max-width: 800px;
-  margin: 10px auto;
-  padding: 0 15px;
-}
+  .question-container.hidden ::ng-deep .timer,
+  .question-container.hidden ::ng-deep .option-button {
+    color: #212529;
+    border-color: #212529;
+    background-color: #212529;
+  }
 
-.progress-text {
-  display: block;
-  text-align: center;
-  margin-top: 5px;
-  color: #666;
-}
+  .quiz-progress {
+    max-width: 800px;
+    margin: 10px auto;
+    padding: 0 15px;
+  }
+
+  .progress-text {
+    display: block;
+    text-align: center;
+    margin-top: 5px;
+    color: #666;
+  }
