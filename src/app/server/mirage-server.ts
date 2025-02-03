@@ -31,10 +31,25 @@ export function makeServer() {
               lastName: 'Jimenez',
               email: 'ad@jz.com',
               pseudonyme: 'adrianjimenez',
-              password: 'adjz'
+              password: 'adjz',
+              avatar: 'avatar1.png'
             },
-            {firstName: 'ad', lastName: 'jz', email: 'ad@jz.com', pseudonyme: 'adjz', password: 'adjz'},
-            {firstName: 'ay', lastName: 'ca', email: 'ay@ca.com', pseudonyme: 'ayca', password: 'ayca'},
+            {
+              firstName: 'ad',
+              lastName: 'jz',
+              email: 'ad@jz.com',
+              pseudonyme: 'adjz',
+              password: 'adjz',
+              avatar: 'avatar1.png'
+            },
+            {
+              firstName: 'ay',
+              lastName: 'ca',
+              email: 'ay@ca.com',
+              pseudonyme: 'ayca',
+              password: 'ayca',
+              avatar: 'avatar2.png'
+            },
           ],
           parties_jouees: [
             {email: 'ad@jz.com', totalParties: 3},
@@ -165,18 +180,30 @@ export function makeServer() {
         }
 
         // 2. Enregistrement de la partie dans evolution_scores
-        // On calcule un nouvel identifiant pour la partie (on ajoute 1 au max existant)
-        let newPartieId = 1;
-        if (schema.db["evolution_scores"].length > 0) {
-          newPartieId = Math.max(...schema.db["evolution_scores"].map(s => s.partieId)) + 1;
+        // On vérifie si une partie avec la même date existe déjà pour cet utilisateur
+        let existingGame = schema.db["evolution_scores"].findBy({email, datePartie});
+        if (existingGame) {
+          // Si la date existe déjà, on met à jour l'enregistrement en augmentant le score
+          const updatedScore = existingGame.score + score;
+          // Vous pouvez également décider de mettre à jour d'autres attributs comme tempsMoyenReponse si nécessaire
+          schema.db["evolution_scores"].update(
+            {id: existingGame.id},
+            {...existingGame, score: updatedScore}
+          );
+        } else {
+          // Sinon, on calcule un nouvel identifiant pour la partie (on ajoute 1 au max existant)
+          let newPartieId = 1;
+          if (schema.db["evolution_scores"].length > 0) {
+            newPartieId = Math.max(...schema.db["evolution_scores"].map(s => s.partieId)) + 1;
+          }
+          schema.db["evolution_scores"].insert({
+            partieId: newPartieId,
+            email,
+            score,
+            datePartie,
+            tempsMoyenReponse
+          });
         }
-        schema.db["evolution_scores"].insert({
-          partieId: newPartieId,
-          email,
-          score,
-          datePartie,
-          tempsMoyenReponse
-        });
 
         // 3. Mise à jour du taux de réussite dans taux_reussite
         let userTaux = schema.db["taux_reussite"].findBy({email});

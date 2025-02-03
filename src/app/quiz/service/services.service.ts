@@ -87,7 +87,7 @@ export class QuizService {
     const payload = {
       email: email,
       score: stats.score,
-      datePartie: new Date().toISOString(),
+      datePartie: new Date().toISOString().split('T')[0],
       // Ici, on considère averageResponseTime comme le temps moyen de réponse (en ms par exemple)
       tempsMoyenReponse: stats.averageResponseTime*1000,
       // Mapping pour le taux de réussite : on utilise correctAnswers et totalQuestions

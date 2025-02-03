@@ -9,9 +9,8 @@ import {LeaderboardComponent} from './leaderboard/leaderboard.component';
 import {QuizComponent} from './quiz/quiz.component';
 import {QuizGameComponent} from './quiz/quiz-game/quiz-game.component';
 import {TestFrameworkComponent} from './test-framework/test-framework.component';
-import {ProfileComponent} from './profile/profile.component';
-import {EditProfileComponent} from './profile/edit-profile/edit-profile.component';
-import {DashboardComponent} from './profile/dashboard/dashboard.component';
+import {ProfileComponent} from './user/profile/profile.component';
+import {DashboardComponent} from './user/dashboard/dashboard.component';
 
 export const routes: Routes = [
   {
@@ -42,14 +41,8 @@ export const routes: Routes = [
       {path: 'quiz-main/:category', component: QuizGameComponent}, // New route with category parameter
     ]
   },
-  {
-    path: 'profile',
-    component: ProfileComponent,
-    children: [
-      {path: 'edit', component: EditProfileComponent},
-      {path: 'dashboard', component: DashboardComponent}
-    ]
-  },
+  {path: 'profile', component: ProfileComponent},
+  {path: 'dashboard', component: DashboardComponent},
   {path: 'test', component: TestFrameworkComponent},
   {path: '', redirectTo: '/accueil', pathMatch: 'full'}, // Redirection vers /accueil pour URL vide
   {path: '**', component: AccueilComponent} // Redirection des URL inconnues

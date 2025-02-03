@@ -34,7 +34,11 @@ export class SignupComponent {
     pseudonyme: new FormControl('', Validators.required),
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', Validators.required),
+    avatar: new FormControl('', Validators.required)
   });
+
+  // Pour gérer le style de l'avatar sélectionné dans le template
+  public selectedAvatar: string = '';
 
   constructor(private router: Router, private authService: AuthService) {
   }
@@ -59,6 +63,11 @@ export class SignupComponent {
     this.hidePassword = !this.hidePassword;
   }
 
+  // Méthode appelée lors du clic sur un avatar
+  selectAvatar(avatar: string) {
+    this.selectedAvatar = avatar;
+    this.authForm.get('avatar')?.setValue(avatar);
+  }
 
   /*  onSubmit() {
       if (this.authForm.valid) {
