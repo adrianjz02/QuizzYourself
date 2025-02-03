@@ -66,7 +66,7 @@ export class AnswerOptionsComponent implements OnInit, OnDestroy {
   }
 
   selectOption(index: number) {
-    if (!this.disabled && !this.answerSelected && !this.showFeedback) {
+    if (!this.disabled && !this.answerSelected && !this.showFeedback && this.remainingTime > 0) {
       this.selectedOptionIndex = index;
       this.answerSelected = true;
       this.stopTimer();
