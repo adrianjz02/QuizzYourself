@@ -1,7 +1,13 @@
 import {createServer, Model, Response} from 'miragejs';
 
+
 export function makeServer() {
-  createServer({
+
+  // Try to retrieve persisted data from localStorage
+  const persistedData = localStorage.getItem('mirageData');
+  const initialData = persistedData ? JSON.parse(persistedData) : null;
+
+  let server = createServer({
     models: {
       users: Model,
       parties_jouees: Model,
@@ -13,81 +19,92 @@ export function makeServer() {
       quizAttempts: Model
     },
     seeds(server) {
-      // Ajouter un utilisateur par défaut pour la connexion
-      server.db.loadData({
-        users: [
-          {firstName: 'Adrian', lastName: 'Jimenez', email: 'ad@jz.com', pseudonyme: 'adrianjimenez', password: 'adjz'},
-          {firstName: 'ad', lastName: 'jz', email: 'ad@jz.com', pseudonyme: 'adjz', password: 'adjz'},
-          {firstName: 'ay', lastName: 'ca', email: 'ay@ca.com', pseudonyme: 'ayca', password: 'ayca'},
-        ],
-        parties_jouees: [
-          {email: 'ad@jz.com', totalParties: 3},
-          {email: 'ay@ca.com', totalParties: 3},
-          {email: 'ma@gu.com', totalParties: 0},
-        ],
-        taux_reussite: [
-          {email: 'ad@jz.com', bonnesReponses: 85, totalReponses: 100},
-          {email: 'ay@ca.com', bonnesReponses: 72, totalReponses: 90},
-        ],
-        evolution_scores: [
-          {partieId: 1, email: 'ad@jz.com', score: 0, datePartie: '2025-01-01', tempsMoyenReponse: 1750},
-          {partieId: 2, email: 'ad@jz.com', score: 0, datePartie: '2025-01-02', tempsMoyenReponse: 1850},
-          {partieId: 3, email: 'ad@jz.com', score: 10, datePartie: '2025-01-03', tempsMoyenReponse: 1850},
-          {partieId: 4, email: 'ay@ca.com', score: 0, datePartie: '2025-01-01', tempsMoyenReponse: 1750},
-          {partieId: 5, email: 'ay@ca.com', score: 0, datePartie: '2025-01-02', tempsMoyenReponse: 1850},
-          {partieId: 6, email: 'ay@ca.com', score: 0, datePartie: '2025-01-03', tempsMoyenReponse: 1850},
-        ],
-        totalScore: [],
-        temps_reponse: [
-          {email: 'ad@jz.com', tempsMoyenMs: 1750},
-          {email: 'ay@ca.com', tempsMoyenMs: 1800},
-        ],
-        quizzes: [
-          {
-            id: 1,
-            videoUrl: "https://www.youtube.com/watch?v=4MK89zVlYdQ",  // Remove &ab_channel=FailArmy
-            category: "Action",
-            pauseTimeInSeconds: 7,
-            options: [
-              "The character jumps off the cliff",
-              "The character fights the boss",
-              "The character finds a secret door",
-              "The character dies"
-            ],
-            correctAnswer: "The character fights the boss",
-            timeLimit: 15
-          },
-          {
-            id: 3,
-            videoUrl: "https://www.youtube.com/watch?v=rPAxrIrw1oU",
-            category: "Sport",
-            pauseTimeInSeconds: 14,
-            options: [
-              "The guy send his ball in a tree",
-              "The guy destroys his little hoop",
-              "The guy scores a basket in another hoop",
-              "The guy makes the ball disappear"
-            ],
-            correctAnswer: "The guy scores a basket in another hoop",
-            timeLimit: 20
-          },
-          {
-            id: 2,
-            videoUrl: "https://www.youtube.com/watch?v=qvC2bVa7UX4&ab_channel=squewe",
-            category: "Animals",
-            pauseTimeInSeconds: 40,
-            options: [
-              "RAT1",
-              "RAT2",
-              "RAT3",
-              "RAT4"
-            ],
-            correctAnswer: "RAT2",
-            timeLimit: 15
-          }
-        ],
-        quizAttempts: []
-      });
+      if (initialData) {
+        // Load persisted data if it exists
+        server.db.loadData(initialData);
+      } else {
+        // Ajouter un utilisateur par défaut pour la connexion
+        server.db.loadData({
+          users: [
+            {
+              firstName: 'Adrian',
+              lastName: 'Jimenez',
+              email: 'ad@jz.com',
+              pseudonyme: 'adrianjimenez',
+              password: 'adjz'
+            },
+            {firstName: 'ad', lastName: 'jz', email: 'ad@jz.com', pseudonyme: 'adjz', password: 'adjz'},
+            {firstName: 'ay', lastName: 'ca', email: 'ay@ca.com', pseudonyme: 'ayca', password: 'ayca'},
+          ],
+          parties_jouees: [
+            {email: 'ad@jz.com', totalParties: 3},
+            {email: 'ay@ca.com', totalParties: 3},
+            {email: 'ma@gu.com', totalParties: 0},
+          ],
+          taux_reussite: [
+            {email: 'ad@jz.com', bonnesReponses: 85, totalReponses: 100},
+            {email: 'ay@ca.com', bonnesReponses: 72, totalReponses: 90},
+          ],
+          evolution_scores: [
+            {partieId: 1, email: 'ad@jz.com', score: 0, datePartie: '2025-01-01', tempsMoyenReponse: 1750},
+            {partieId: 2, email: 'ad@jz.com', score: 0, datePartie: '2025-01-02', tempsMoyenReponse: 1850},
+            {partieId: 3, email: 'ad@jz.com', score: 10, datePartie: '2025-01-03', tempsMoyenReponse: 1850},
+            {partieId: 4, email: 'ay@ca.com', score: 0, datePartie: '2025-01-01', tempsMoyenReponse: 1750},
+            {partieId: 5, email: 'ay@ca.com', score: 0, datePartie: '2025-01-02', tempsMoyenReponse: 1850},
+            {partieId: 6, email: 'ay@ca.com', score: 0, datePartie: '2025-01-03', tempsMoyenReponse: 1850},
+          ],
+          totalScore: [],
+          temps_reponse: [
+            {email: 'ad@jz.com', tempsMoyenMs: 1750},
+            {email: 'ay@ca.com', tempsMoyenMs: 1800},
+          ],
+          quizzes: [
+            {
+              id: 1,
+              videoUrl: "https://www.youtube.com/watch?v=4MK89zVlYdQ",  // Remove &ab_channel=FailArmy
+              category: "Action",
+              pauseTimeInSeconds: 7,
+              options: [
+                "The character jumps off the cliff",
+                "The character fights the boss",
+                "The character finds a secret door",
+                "The character dies"
+              ],
+              correctAnswer: "The character fights the boss",
+              timeLimit: 15
+            },
+            {
+              id: 3,
+              videoUrl: "https://www.youtube.com/watch?v=rPAxrIrw1oU",
+              category: "Sport",
+              pauseTimeInSeconds: 14,
+              options: [
+                "The guy send his ball in a tree",
+                "The guy destroys his little hoop",
+                "The guy scores a basket in another hoop",
+                "The guy makes the ball disappear"
+              ],
+              correctAnswer: "The guy scores a basket in another hoop",
+              timeLimit: 20
+            },
+            {
+              id: 2,
+              videoUrl: "https://www.youtube.com/watch?v=qvC2bVa7UX4&ab_channel=squewe",
+              category: "Animals",
+              pauseTimeInSeconds: 40,
+              options: [
+                "RAT1",
+                "RAT2",
+                "RAT3",
+                "RAT4"
+              ],
+              correctAnswer: "RAT2",
+              timeLimit: 15
+            }
+          ],
+          quizAttempts: []
+        });
+      }
     },
     routes() {
       this.namespace = 'api';
@@ -137,14 +154,14 @@ export function makeServer() {
         } = JSON.parse(request.requestBody);
 
         // 1. Mise à jour du nombre de parties jouées dans la table parties_jouees
-        let userParties = schema.db["parties_jouees"].findBy({ email });
+        let userParties = schema.db["parties_jouees"].findBy({email});
         if (userParties) {
           // Incrémentation du total de parties
           const updatedParties = userParties.totalParties + 1;
-          schema.db["parties_jouees"].update({ email }, { ...userParties, totalParties: updatedParties });
+          schema.db["parties_jouees"].update({email}, {...userParties, totalParties: updatedParties});
         } else {
           // Si l'utilisateur n'existe pas dans parties_jouees, on l'ajoute avec 1 partie jouée
-          schema.db["parties_jouees"].insert({ email, totalParties: 1 });
+          schema.db["parties_jouees"].insert({email, totalParties: 1});
         }
 
         // 2. Enregistrement de la partie dans evolution_scores
@@ -162,21 +179,21 @@ export function makeServer() {
         });
 
         // 3. Mise à jour du taux de réussite dans taux_reussite
-        let userTaux = schema.db["taux_reussite"].findBy({ email });
+        let userTaux = schema.db["taux_reussite"].findBy({email});
         if (userTaux) {
           const updatedBonnesReponses = userTaux.bonnesReponses + bonnesReponses;
           const updatedTotalReponses = userTaux.totalReponses + totalReponses;
-          schema.db["taux_reussite"].update({ email }, {
+          schema.db["taux_reussite"].update({email}, {
             ...userTaux,
             bonnesReponses: updatedBonnesReponses,
             totalReponses: updatedTotalReponses
           });
         } else {
           // Si l'utilisateur n'existe pas dans taux_reussite, on l'initialise avec les valeurs de la partie
-          schema.db["taux_reussite"].insert({ email, bonnesReponses, totalReponses });
+          schema.db["taux_reussite"].insert({email, bonnesReponses, totalReponses});
         }
 
-        return { message: "Partie mise à jour avec succès" };
+        return {message: "Partie mise à jour avec succès"};
       });
 
 
@@ -282,7 +299,7 @@ export function makeServer() {
         const scores = schema.db["evolution_scores"].filter(score => score.email === email);
 
         if (!scores || scores.length === 0) {
-          return { error: `Aucun score trouvé pour l'email: ${email}` };
+          return {error: `Aucun score trouvé pour l'email: ${email}`};
         }
 
         // Calcul de la somme des temps de réponse
@@ -290,7 +307,7 @@ export function makeServer() {
         // Calcul de la moyenne
         const moyenneTempsReponse = totalTemps / scores.length;
 
-        return { email, moyenneTempsReponse };
+        return {email, moyenneTempsReponse};
       });
 
       this.get("/tempsMoyenGlobal", (schema) => {
@@ -298,7 +315,7 @@ export function makeServer() {
         const scores = schema.db["evolution_scores"];
 
         if (!scores || scores.length === 0) {
-          return { error: "Aucun score disponible" };
+          return {error: "Aucun score disponible"};
         }
 
         // Calcul de la somme des temps de réponse
@@ -306,7 +323,7 @@ export function makeServer() {
         // Calcul de la moyenne
         const moyenneGlobal = totalTemps / scores.length;
 
-        return { moyenneGlobal };
+        return {moyenneGlobal};
       });
 
       // Méthode pour obtenir le maximum de parties jouées
@@ -432,6 +449,11 @@ export function makeServer() {
           successRate
         };
       });
+      // Save the Mirage database to localStorage before the page unloads
+      window.addEventListener('beforeunload', () => {
+        localStorage.setItem('mirageData', JSON.stringify(server.db.dump()));
+      });
     },
   });
+  return server;
 }
