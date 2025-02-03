@@ -62,7 +62,7 @@ export class BarChartTempsReponseComponent {
       if (data) {
         this.barChartData.labels = ['Temps de réponse moyen (ms)'];
         this.barChartData.datasets[0].data = [
-          data.tempsMoyenMs,
+          data.moyenneTempsReponse, // utilisation de la propriété correcte
         ];
         this.chart?.update();
       }
@@ -71,7 +71,7 @@ export class BarChartTempsReponseComponent {
     this.graphService.getAverageTempsReponse().subscribe((data) => {
       if (data) {
         this.barChartData.datasets[1].data = [
-          data.moyenne,
+          data.moyenneGlobal,
         ];
         this.chart?.update();
       }

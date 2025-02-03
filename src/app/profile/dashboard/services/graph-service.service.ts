@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {Observable, tap} from 'rxjs';
 import {AuthService} from '../../../auth/services/auth.service';
 
 @Injectable({
@@ -25,7 +25,9 @@ export class GraphService {
     if (!email) {
       throw new Error('Utilisateur non connecté ou email non défini.');
     }
-    return this.http.get<any>(`/api/taux_reussite?email=${(email)}`);
+    return this.http.get<any>(`/api/taux_reussite?email=${email}`).pipe(
+      tap(response => console.log('Réponse de taux_reussite:', response))
+    );
   }
 
   getEvolutionScores(): Observable<any> {
@@ -41,11 +43,16 @@ export class GraphService {
     if (!email) {
       throw new Error('Utilisateur non connecté ou email non défini.');
     }
-    return this.http.get<any>(`/api/temps_reponse?email=${(email)}`);
+    // Appel de l'endpoint Mirage JS défini dans /api/tempsMoyen/:email
+    return this.http.get<any>(`/api/tempsMoyen/${email}`).pipe(
+      tap(response => console.log('Réponse de l\'API :', response))
+    );
   }
 
   getAverageTempsReponse(): Observable<any> {
-    return this.http.get('/api/temps_reponse/moyenne');
+    return this.http.get('/api/tempsMoyenGlobal').pipe(
+      tap(response => console.log('Réponse de l\'API :', response))
+    );
   }
 
   //  Max parties

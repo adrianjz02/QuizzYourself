@@ -274,24 +274,39 @@ export function makeServer() {
       });
 
 
-      this.get("/temps_reponse", (schema, request) => {
-        const email = request.queryParams['email'];
-        if (email) {
-          return schema.db['temps_reponse'].findBy({email});
+      // Définition de la route GET qui prend un email en paramètre
+      this.get("/tempsMoyen/:email", (schema, request) => {
+        const email = request.params['email'];
+
+        // Récupération des enregistrements dans la table evolution_scores pour l'email spécifié
+        const scores = schema.db["evolution_scores"].filter(score => score.email === email);
+
+        if (!scores || scores.length === 0) {
+          return { error: `Aucun score trouvé pour l'email: ${email}` };
         }
-        return new Response(404, {}, {error: "Utilisateur non trouvé"});
+
+        // Calcul de la somme des temps de réponse
+        const totalTemps = scores.reduce((total, score) => total + score.tempsMoyenReponse, 0);
+        // Calcul de la moyenne
+        const moyenneTempsReponse = totalTemps / scores.length;
+
+        return { email, moyenneTempsReponse };
       });
 
-      // Route pour récupérer la moyenne des temps de réponse
-      this.get("/temps_reponse/moyenne", (schema) => {
-        const temps = schema.db['temps_reponse'];
-        if (temps.length === 0) return {moyenne: 0};
+      this.get("/tempsMoyenGlobal", (schema) => {
+        // Récupération de tous les enregistrements de la table evolution_scores
+        const scores = schema.db["evolution_scores"];
 
-        // Calcul de la moyenne des tempsMoyenMs
-        const totalTemps = temps.reduce((sum, item) => sum + item.tempsMoyenMs, 0);
-        const moyenne = totalTemps / temps.length;
+        if (!scores || scores.length === 0) {
+          return { error: "Aucun score disponible" };
+        }
 
-        return {moyenne};
+        // Calcul de la somme des temps de réponse
+        const totalTemps = scores.reduce((acc, item) => acc + item.tempsMoyenReponse, 0);
+        // Calcul de la moyenne
+        const moyenneGlobal = totalTemps / scores.length;
+
+        return { moyenneGlobal };
       });
 
       // Méthode pour obtenir le maximum de parties jouées
@@ -348,8 +363,8 @@ export function makeServer() {
         if (userStats) {
           const updatedStats = {
             ...userStats,
-            totalReponses: userStats.totalReponses + 1,
-            bonnesReponses: userStats.bonnesReponses + (isCorrect ? 1 : 0)
+            totalReponses: userStats.totalReponses,
+            bonnesReponses: userStats.bonnesReponses,
           };
           schema.db['taux_reussite'].update({email}, updatedStats);
         }
