@@ -26,7 +26,7 @@
           <p><strong>Taux de réussite :</strong>
             {{ (userProfile.tauxReussite.bonnesReponses / userProfile.tauxReussite.totalReponses) * 100 | number:'1.0-2' }} %
           </p>
-          <p><strong>Temps moyen de réponse :</strong> {{ userProfile.tempsReponse.tempsMoyenMs }} ms</p>
+          <p><strong>Temps moyen de réponse :</strong> {{ averageResponseTime | number:'1.2-2' }} ms</p>
         </div>
       </div>
     </div>

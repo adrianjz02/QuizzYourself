@@ -3,6 +3,7 @@ import {AuthService} from '../auth/services/auth.service';
 import {RouterOutlet} from '@angular/router';
 import {ProfileService} from './services/profile.service';
 import {DecimalPipe, NgForOf} from '@angular/common';
+import {GraphService} from './dashboard/services/graph-service.service';
 
 @Component({
   selector: 'app-profile',
@@ -17,8 +18,9 @@ import {DecimalPipe, NgForOf} from '@angular/common';
 export class ProfileComponent {
   protected userProfile: any;
   public userMail: string | null;
+  averageResponseTime: number | null = null;
 
-  constructor(private authService: AuthService, private profileService: ProfileService) {
+  constructor(private authService: AuthService, private profileService: ProfileService, private graphService: GraphService) {
     this.userMail = this.authService.getUserEmail(); // Récupération de l'email
   }
 
@@ -33,6 +35,20 @@ export class ProfileComponent {
         },
         complete: () => {
           // Vous pouvez ajouter du code ici si nécessaire
+        }
+      });
+
+      // Appel pour récupérer le temps de réponse moyen
+      this.graphService.getTempsReponse().subscribe({
+        next: (data) => {
+          // Supposons que l'API renvoie un objet avec la propriété "moyenneTempsReponse"
+          if (data && data.moyenneTempsReponse) {
+            this.averageResponseTime = data.moyenneTempsReponse;
+            console.log('Temps de réponse moyen récupéré :', this.averageResponseTime);
+          }
+        },
+        error: (error) => {
+          console.error('Erreur lors de la récupération du temps de réponse moyen :', error);
         }
       });
     }
