@@ -151,12 +151,20 @@ export class QuizGameComponent implements OnInit, OnDestroy {
             this.videoPlayer.player.playVideo();
 
             if (this.questionsAnswered >= this.totalQuestions) {
+              // For last video, wait for it to end then show stats
               const checkVideoEnd = setInterval(() => {
                 if (this.videoPlayer.player.getPlayerState() === window.YT.PlayerState.ENDED) {
                   clearInterval(checkVideoEnd);
                   this.endGame();
                 }
               }, 1000);
+            } else {
+              // For non-last videos, wait briefly then load next quiz
+              setTimeout(() => {
+                if (this.videoPlayer && this.videoPlayer.player) {
+                  this.loadNextQuiz();
+                }
+              }, 6000);
             }
           }
         }, 1500);
