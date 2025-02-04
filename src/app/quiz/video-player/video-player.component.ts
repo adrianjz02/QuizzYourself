@@ -134,12 +134,7 @@ export class VideoPlayerComponent implements OnInit, OnDestroy, OnChanges {
 
       this.player = new window.YT.Player('youtube-player', {
         videoId: this.videoId,
-        playerVars: {
-          ...this.getPlayerConfig(),
-          // Add specific settings for Shorts
-          height: '100%',
-          width: '100%'
-        },
+        playerVars: this.getPlayerConfig(),
         events: {
           onStateChange: (event: any) => this.onPlayerStateChange(event),
           onReady: () => this.onPlayerReady(),

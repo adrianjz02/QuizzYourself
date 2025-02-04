@@ -1,4 +1,4 @@
-<div class="video-container">
+<div class="video-container" [class.shorts]="videoUrl.includes('/shorts/')">
   @if (videoId) {
     <div id="youtube-player" class="youtube-player-wrapper"></div>
   } @else {
