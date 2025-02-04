@@ -76,18 +76,75 @@ export function makeServer() {
           quizzes: [
             {
               id: 1,
-              videoUrl: "https://www.youtube.com/watch?v=4MK89zVlYdQ",  // Remove &ab_channel=FailArmy
+              videoUrl: "https://youtu.be/uYrglXV55V0?si=eT9yir9HrQ6rhZns",  // Remove &ab_channel=FailArmy
+              category: "Action",
+              pauseTimeInSeconds: 14.5,
+              options: [
+                "L'ours va être bloqué dehors",
+                "Son coéquipier va ouvrir la porte",
+                "L'ours va défoncer la porte",
+                "Ils vont tirer à travers la porte"
+              ],
+              correctAnswer: "Son coéquipier va ouvrir la porte",
+              timeLimit: 15
+            },
+            {
+              id: 2,
+              videoUrl: "https://youtu.be/kBpafn7CJrE?si=IeEB6LPJrd6O_Zj_",  // Remove &ab_channel=FailArmy
+              category: "Action",
+              pauseTimeInSeconds: 4.5,
+              options: [
+                "Le lance-roquette va faire exploser la voiture",
+                "Quelqu'un va apparaître devant lui et se faire exploser",
+                "Le personne va rater son tire",
+                "Il va se faire écraser par la voiture"
+              ],
+              correctAnswer: "Quelqu'un va apparaître devant lui et se faire exploser",
+              timeLimit: 15
+            },
+            {
+              id: 3,
+              videoUrl: "https://youtu.be/Ndss-d5VcH0?si=TYDBgaFPautmznzE",  // Remove &ab_channel=FailArmy
+              category: "Action",
+              pauseTimeInSeconds: 4,
+              options: [
+                "Le personnage va tomber dans la vide et mourir",
+                "Un monstre va apparaitre",
+                "Un avion va s'écraser dessus",
+                "Une météorite va s'écraser juste à côté"
+              ],
+              correctAnswer: "Le personnage va tomber dans la vide et mourir",
+              timeLimit: 15
+            },
+            {
+              id: 4,
+              videoUrl: "https://youtu.be/cca1yq140CI?si=-UJTc-7n5eO2UHrI",  // Remove &ab_channel=FailArmy
               category: "Action",
               pauseTimeInSeconds: 7,
               options: [
-                "The character jumps off the cliffAAAAAAAAA",
-                "The character fights the boss",
-                "The character finds a secret door",
-                "The character dies"
+                "L'arbre va faire tomber un autre arbre",
+                "L'arbre va tomber normalement",
+                "L'arbre va tomber sur le personnage",
+                "Aucune des 3 réponses"
               ],
-              correctAnswer: "The character fights the boss",
+              correctAnswer: "L'arbre va tomber sur le personnage",
               timeLimit: 15
-            }/*,
+            },
+            {
+              id: 5,
+              videoUrl: "https://youtu.be/VVG6yMwb4IA?si=8zwfvpJIbzdgMCX4",  // Remove &ab_channel=FailArmy
+              category: "Action",
+              pauseTimeInSeconds: 6,
+              options: [
+                "Le train va s'arrêter",
+                "Le train va dérailler en évitant le véhicule",
+                "Le train va exploser",
+                "Le personnage va mourir"
+              ],
+              correctAnswer: "Le personnage va mourir",
+              timeLimit: 15
+            },
+            /*,
             {
               id: 3,
               videoUrl: "https://www.youtube.com/watch?v=rPAxrIrw1oU",
@@ -101,9 +158,9 @@ export function makeServer() {
               ],
               correctAnswer: "The guy scores a basket in another hoop",
               timeLimit: 20
-            }*/,
+            }*/
             {
-              id: 2,
+              id: 6,
               videoUrl: "https://www.youtube.com/watch?v=qvC2bVa7UX4&ab_channel=squewe",
               category: "Animals",
               pauseTimeInSeconds: 40,
@@ -117,7 +174,7 @@ export function makeServer() {
               timeLimit: 15
             },
             {
-              id: 4,
+              id: 7,
               videoUrl: "https://www.youtube.com/shorts/5Ko9BQ6p7XA",  // Remove &ab_channel=FailArmy
               category: "Sport",
               pauseTimeInSeconds: 5,

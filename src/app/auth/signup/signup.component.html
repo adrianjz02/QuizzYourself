@@ -44,10 +44,14 @@
     <div class="avatar-selection">
       <p>Choisissez votre avatar :</p>
       <div class="avatar-options">
-        <img src="avatar1.png" alt="Avatar 1" [class.selected]="selectedAvatar === 'avatar1.png'" (click)="selectAvatar('avatar1.png')">
-        <img src="avatar2.png" alt="Avatar 2" [class.selected]="selectedAvatar === 'avatar2.png'" (click)="selectAvatar('avatar2.png')">
-        <img src="avatar3.png" alt="Avatar 3" [class.selected]="selectedAvatar === 'avatar3.png'" (click)="selectAvatar('avatar3.png')">
-        <img src="avatar4.png" alt="Avatar 4" [class.selected]="selectedAvatar === 'avatar4.png'" (click)="selectAvatar('avatar4.png')">
+        <img src="avatar1.png" alt="Avatar 1" [class.selected]="selectedAvatar === 'avatar1.png'"
+             (click)="selectAvatar('avatar1.png')">
+        <img src="avatar2.png" alt="Avatar 2" [class.selected]="selectedAvatar === 'avatar2.png'"
+             (click)="selectAvatar('avatar2.png')">
+        <img src="avatar3.png" alt="Avatar 3" [class.selected]="selectedAvatar === 'avatar3.png'"
+             (click)="selectAvatar('avatar3.png')">
+        <img src="avatar4.png" alt="Avatar 4" [class.selected]="selectedAvatar === 'avatar4.png'"
+             (click)="selectAvatar('avatar4.png')">
       </div>
       <mat-error *ngIf="authForm.get('avatar')?.hasError('required')">Veuillez sélectionner un avatar.</mat-error>
     </div>

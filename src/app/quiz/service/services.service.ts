@@ -89,7 +89,7 @@ export class QuizService {
       score: stats.score,
       datePartie: new Date().toISOString().replace('T', ' ').substring(0, 16),
       // Ici, on considère averageResponseTime comme le temps moyen de réponse (en ms par exemple)
-      tempsMoyenReponse: stats.averageResponseTime*1000,
+      tempsMoyenReponse: stats.averageResponseTime * 1000,
       // Mapping pour le taux de réussite : on utilise correctAnswers et totalQuestions
       bonnesReponses: stats.correctAnswers,
       totalReponses: stats.totalQuestions
