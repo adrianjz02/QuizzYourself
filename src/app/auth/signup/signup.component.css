@@ -1,9 +1,148 @@
-.singup {
-  min-width: 150px;
-  max-width: 500px;
+/* Conteneur principal du formulaire */
+.signup-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   width: 100%;
 }
 
+/* Conteneur du formulaire avec intégration du header */
+.signup {
+  background: #072b47; /* Bleu foncé */
+  border-radius: 12px;
+  padding: 20px 30px;
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.3);
+  max-width: 500px;
+  width: 100%;
+  margin: 20px;
+  animation: fadeInUp 0.5s ease-out;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* En-tête intégré au formulaire */
+.form-header {
+  width: 100%;
+  text-align: center;
+  background: linear-gradient(180deg, #05406f, #072b47);
+  color: #ffffff; /* Texte en blanc */
+  font-size: 24px;
+  font-weight: bold;
+  padding: 15px;
+  border-radius: 12px 12px 0 0;
+  margin-bottom: 20px;
+  box-shadow: inset 0px -2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Champs du formulaire */
 .authForm {
   width: 100%;
+  margin-bottom: 20px;
+}
+
+/* Styles pour les champs de texte */
+mat-form-field {
+  width: 100%;
+}
+
+.mat-form-field-label,
+.mat-form-field-required-marker {
+  color: #ffffff !important; /* Labels en blanc */
+}
+
+.mat-input-element {
+  color: #ffffff !important; /* Texte des inputs en blanc */
+  background-color: transparent !important; /* Fond transparent */
+  border-bottom: 1px solid #ffffff !important; /* Bordure blanche */
+}
+
+/* Modifier la bordure des champs */
+.mat-form-field-appearance-outline .mat-form-field-outline {
+  color: #ffffff !important; /* Bordure en blanc */
+}
+
+.mat-form-field-appearance-outline .mat-form-field-outline-thick {
+  border-width: 2px;
+}
+
+/* Placeholder */
+::placeholder {
+  color: #ffffff !important;
+  opacity: 0.7;
+}
+
+/* Sélection d'avatar */
+.avatar-selection {
+  text-align: center;
+  margin: 20px 0;
+  color: white;
+}
+
+.avatar-options {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.avatar-options img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.avatar-options img.selected {
+  border: 3px solid #ffcc00; /* Doré pour mettre en avant */
+  transform: scale(1.1);
+  box-shadow: 0 0 10px rgba(255, 204, 0, 0.7);
+}
+
+/* Bouton d'inscription */
+.buttonForm {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+button[mat-flat-button] {
+  background-color: #ffcc00; /* Doré pour attirer l'attention */
+  color: #072b47;
+  font-weight: 600;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+button[mat-flat-button]:hover {
+  background-color: #e6b800;
+  transform: scale(1.03);
+}
+
+/* Bouton d'icône pour le mot de passe */
+button[mat-icon-button] {
+  color: #ffcc00;
+}
+
+/* Messages d'erreur */
+mat-error {
+  font-size: 13px;
+  color: #ff6b6b; /* Rouge clair */
+}
+
+/* Liens */
+a {
+  color: #ffcc00;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+a:hover {
+  color: #e6b800;
+  text-decoration: underline;
 }

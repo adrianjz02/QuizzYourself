@@ -1,75 +1,59 @@
-<form [formGroup]="authForm" (ngSubmit)="onSubmit()" class="singup">
-  <mat-form-field class="authForm">
-    <mat-label>Prénom</mat-label>
-    <input matInput placeholder="Ex: Adrian" formControlName="firstName">
-    @if (authForm.hasError('required', 'firstName')) {
-      <mat-error>Le prénom est requis.</mat-error>
-    }
-  </mat-form-field>
-
-  <mat-form-field class="authForm">
-    <mat-label>Nom</mat-label>
-    <input matInput placeholder="Ex: Jimenez" formControlName="lastName">
-    @if (authForm.hasError('required', 'lastName')) {
-      <mat-error>Le nom de famille est requis.</mat-error>
-    }
-  </mat-form-field>
-
-  <mat-form-field class="authForm">
-    <mat-label>Pseudo</mat-label>
-    <input matInput placeholder="Ex: adrianjz02" formControlName="pseudonyme">
-    @if (authForm.hasError('required', 'pseudonyme')) {
-      <mat-error>Le pseudonyme est requis.</mat-error>
-    }
-  </mat-form-field>
-
-  <mat-form-field class="authForm">
-    <mat-label>Email</mat-label>
-    <input matInput placeholder="Ex: Adrianjimenez@gmail.com" formControlName="email">
-    @if (authForm.hasError('email', 'email')) {
-      <mat-error>Le mail doit être valide.</mat-error>
-    } @else if (authForm.hasError('required', 'email')) {
-      <mat-error>Le mail est requis.</mat-error>
-    }
-  </mat-form-field>
-
-  <mat-form-field class="authForm">
-    <mat-label>Mot de passe</mat-label>
-    <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password">
-    <button mat-icon-button matSuffix (click)="togglePasswordVisibility()" type="button"
-            aria-label="Afficher ou masquer le mot de passe">
-      <mat-icon>{{ hidePassword ? 'visibility' : 'visibility_off' }}</mat-icon>
-    </button>
-    <mat-error *ngIf="authForm.get('password')?.hasError('required')">Le mot de passe est requis.</mat-error>
-  </mat-form-field>
-
-  <!-- Sélection d'Avatar -->
-  <div class="avatar-selection">
-    <p>Choisissez votre avatar :</p>
-    <div class="avatar-options">
-      <img src="avatar1.png"
-           alt="Avatar 1"
-           [class.selected]="selectedAvatar === 'avatar1.png'"
-           (click)="selectAvatar('avatar1.png')">
-      <img src="avatar2.png"
-           alt="Avatar 2"
-           [class.selected]="selectedAvatar === 'avatar2.png'"
-           (click)="selectAvatar('avatar2.png')">
-      <img src="avatar3.png"
-           alt="Avatar 3"
-           [class.selected]="selectedAvatar === 'avatar3.png'"
-           (click)="selectAvatar('avatar3.png')">
-      <img src="avatar4.png"
-           alt="Avatar 4"
-           [class.selected]="selectedAvatar === 'avatar4.png'"
-           (click)="selectAvatar('avatar4.png')">
+<div class="signup-container">
+  <form [formGroup]="authForm" (ngSubmit)="onSubmit()" class="signup">
+    <!-- En-tête du formulaire intégré -->
+    <div class="form-header">
+      <span class="fw-bold">Inscription</span>
     </div>
-    <mat-error *ngIf="authForm.get('avatar')?.hasError('required')">
-      Veuillez sélectionner un avatar.
-    </mat-error>
-  </div>
 
-  <div class="buttonForm">
-    <button mat-flat-button type="submit" [disabled]="!authForm.valid">S'inscrire</button>
-  </div>
-</form>
+    <mat-form-field class="authForm">
+      <mat-label>Prénom</mat-label>
+      <input matInput formControlName="firstName">
+      <mat-error *ngIf="authForm.get('firstName')?.hasError('required')">Le prénom est requis.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="authForm">
+      <mat-label>Nom</mat-label>
+      <input matInput formControlName="lastName">
+      <mat-error *ngIf="authForm.get('lastName')?.hasError('required')">Le nom de famille est requis.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="authForm">
+      <mat-label>Pseudo</mat-label>
+      <input matInput formControlName="pseudonyme">
+      <mat-error *ngIf="authForm.get('pseudonyme')?.hasError('required')">Le pseudonyme est requis.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="authForm">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email">
+      <mat-error *ngIf="authForm.get('email')?.hasError('email')">Le mail doit être valide.</mat-error>
+      <mat-error *ngIf="authForm.get('email')?.hasError('required')">Le mail est requis.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="authForm">
+      <mat-label>Mot de passe</mat-label>
+      <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password">
+      <button mat-icon-button matSuffix (click)="togglePasswordVisibility()" type="button"
+              aria-label="Afficher ou masquer le mot de passe">
+        <mat-icon>{{ hidePassword ? 'visibility' : 'visibility_off' }}</mat-icon>
+      </button>
+      <mat-error *ngIf="authForm.get('password')?.hasError('required')">Le mot de passe est requis.</mat-error>
+    </mat-form-field>
+
+    <!-- Sélection d'Avatar -->
+    <div class="avatar-selection">
+      <p>Choisissez votre avatar :</p>
+      <div class="avatar-options">
+        <img src="avatar1.png" alt="Avatar 1" [class.selected]="selectedAvatar === 'avatar1.png'" (click)="selectAvatar('avatar1.png')">
+        <img src="avatar2.png" alt="Avatar 2" [class.selected]="selectedAvatar === 'avatar2.png'" (click)="selectAvatar('avatar2.png')">
+        <img src="avatar3.png" alt="Avatar 3" [class.selected]="selectedAvatar === 'avatar3.png'" (click)="selectAvatar('avatar3.png')">
+        <img src="avatar4.png" alt="Avatar 4" [class.selected]="selectedAvatar === 'avatar4.png'" (click)="selectAvatar('avatar4.png')">
+      </div>
+      <mat-error *ngIf="authForm.get('avatar')?.hasError('required')">Veuillez sélectionner un avatar.</mat-error>
+    </div>
+
+    <div class="buttonForm">
+      <button mat-flat-button type="submit" [disabled]="!authForm.valid">S'inscrire</button>
+    </div>
+  </form>
+</div>

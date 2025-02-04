@@ -1,42 +1,40 @@
 /* Assurer que html et body occupent toute la hauteur */
-html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-}
-
-/* Global Styles */
-body {
-  background: linear-gradient(165deg, #0a0b0c, #495158);
-  font-family: 'Roboto', sans-serif;
+.login-container {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  padding: 20px; /* Pour laisser un peu d'espace sur les bords sur petits écrans */
+  justify-content: center;
+  width: 100%;
 }
 
-/* Conteneur de la page de connexion */
+/* Conteneur du formulaire avec intégration du header */
 .login-form {
-  background: #b3c7db;
+  background: #072b47; /* Bleu foncé */
   border-radius: 12px;
-  padding: 40px 30px;
-  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
+  padding: 20px 30px;
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.3);
   max-width: 400px;
   width: 100%;
-  margin: 20px; /* Ajoute un espacement en haut et en bas */
+  margin: 20px;
   animation: fadeInUp 0.5s ease-out;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-/* Animation d'apparition */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+
+/* En-tête intégré au formulaire */
+.form-header {
+  width: 100%;
+  text-align: center;
+  background: linear-gradient(180deg, #05406f, #072b47);
+  color: #ffffff;
+  font-size: 24px;
+  font-weight: bold;
+  padding: 15px;
+  border-radius: 12px 12px 0 0;
+  margin-bottom: 20px;
+  box-shadow: inset 0px -2px 4px rgba(0, 0, 0, 0.2);
 }
 
 /* Champs du formulaire */
@@ -45,27 +43,71 @@ body {
   margin-bottom: 20px;
 }
 
+/* Styles pour les champs de texte */
 mat-form-field {
   width: 100%;
 }
 
-/* Modification des labels et texte des champs en blanc */
 .mat-form-field-label,
 .mat-form-field-required-marker {
-  color: #fff !important;
+  color: #333333 !important; /* Labels en gris foncé */
+}
+
+/* ✅ Assurer que les champs de saisie ont un fond blanc et du texte en gris foncé */
+.mat-form-field-appearance-outline .mat-form-field-infix {
+  background-color: #ffffff !important;
+  border-radius: 5px !important;
+  padding: 10px !important;
 }
 
 .mat-input-element {
-  color: #fff;
+  background-color: #ffffff !important;
+  color: #333333 !important;
+  caret-color: #333333 !important;
+  padding: 10px;
+  font-size: 16px;
 }
 
-/* Pour le placeholder (optionnel) */
-::placeholder {
-  color: #fff;
-  opacity: 1; /* Pour une bonne visibilité sur Firefox */
+/* ✅ Forcer la couleur des placeholders */
+::placeholder,
+.mat-input-element::placeholder {
+  color: rgba(0, 0, 0, 0.6) !important;
 }
 
-/* Bouton de connexion */
+/* ✅ Corriger la bordure des champs */
+.mat-form-field-appearance-outline .mat-form-field-outline {
+  border-color: #333333 !important; /* Bordure gris foncé */
+}
+
+/* ✅ Corriger les champs en erreur */
+.mat-form-field-invalid .mat-form-field-infix {
+  background-color: #ffffff !important;
+}
+
+.mat-form-field-invalid .mat-input-element {
+  color: #333333 !important;
+}
+
+.mat-form-field-invalid .mat-form-field-outline {
+  border-color: #ff6b6b !important;
+}
+
+.mat-form-field-invalid .mat-form-field-label {
+  color: #ff6b6b !important;
+}
+
+/* ✅ Messages d'erreur */
+mat-error {
+  font-size: 13px;
+  color: #ff6b6b !important;
+}
+
+/* ✅ Ajustement du padding pour éviter tout chevauchement */
+.mat-form-field-wrapper {
+  padding-bottom: 0px !important;
+}
+
+/* ✅ Bouton de connexion */
 .buttonForm {
   display: flex;
   justify-content: center;
@@ -73,8 +115,8 @@ mat-form-field {
 }
 
 button[mat-flat-button] {
-  background-color: #007BFF;
-  color: #fff;
+  background-color: #0a4f72;
+  color: #ffffff;
   font-weight: 600;
   border: none;
   padding: 12px 30px;
@@ -84,30 +126,24 @@ button[mat-flat-button] {
 }
 
 button[mat-flat-button]:hover {
-  background-color: #0056b3;
+  background-color: #09527c;
   transform: scale(1.03);
 }
 
-/* Bouton d'icône (pour le mot de passe) */
+/* ✅ Bouton d'icône (pour afficher/masquer le mot de passe) */
 button[mat-icon-button] {
-  color: #007BFF;
+  color: #ffffff !important;
 }
 
-/* Messages d'erreur */
-mat-error {
-  font-size: 13px;
-  color: #d32f2f;
-}
-
-/* Liens */
+/* ✅ Liens */
 a {
-  color: #007BFF;
+  color: #0a84ff !important;
   text-decoration: none;
   font-weight: 500;
   transition: color 0.3s;
 }
 
 a:hover {
-  color: #0056b3;
+  color: #66b3ff;
   text-decoration: underline;
 }

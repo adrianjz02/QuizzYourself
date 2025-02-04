@@ -1,30 +1,74 @@
-/* Style global du tableau */
+/* Conteneur principal */
+.container {
+  max-width: 700px;
+  margin: auto;
+  background-color: #072b47; /* Bleu foncé */
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  padding: 20px;
+}
+
+/* Titre du leaderboard */
+.container h2 {
+  margin-bottom: 20px;
+  color: #ffffff !important;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+/* Table */
 .table {
-  border-collapse: separate;
-  border-spacing: 0;
   width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 10px;
 }
 
-/* Style des en-têtes */
-thead {
-  background-color: #212529; /* Fond foncé */
-  color: #212529; /* Texte blanc */
+/* En-tête de table */
+.table thead th {
+  background: linear-gradient(180deg, #05406f, #072b47); /* Dégradé */
+  color: #ffffff;
+  text-align: left;
+  padding: 12px;
+  font-weight: bold;
+  border-radius: 8px 8px 0 0; /* Fixer l'arrondi */
 }
 
-/* Style des lignes */
-tbody tr {
-  background: transparent !important; /* Supprime le background */
-  border-top: 2px solid #ffffff10; /* Ligne de séparation */
-  border-bottom: 2px solid #ffffff10; /* Ligne de séparation */
+/* Correction des coins arrondis */
+.table thead tr:first-child th:first-child {
+  border-top-left-radius: 8px;
 }
 
-/* Style du texte dans les cellules */
-td, th {
-  text-align: center;
+.table thead tr:first-child th:last-child {
+  border-top-right-radius: 8px;
+}
+
+/* Lignes du tableau - Uniformiser toutes les lignes */
+.table tbody tr {
+  background-color: #0a4f72; /* Uniformiser toutes les lignes */
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+/* Correction : Suppression du gris de la première ligne */
+.table tbody tr:first-child {
+  background-color: #0a4f72 !important; /* Assurer que toutes les lignes ont le même fond */
+}
+
+/* Texte en blanc pour toutes les cellules */
+.table tbody tr td {
   padding: 15px;
+  color: #ffffff !important; /* Texte blanc */
+  background-color: #0a4f72; /* Assurer un fond uniforme */
+  border-bottom: none;
 }
 
-/* Effet de survol */
-tbody tr:hover {
-  background: rgba(255, 255, 255, 0.05); /* Léger éclaircissement */
+/* Ajout d'un léger espace entre les lignes */
+.table tbody tr:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+/* Effet au survol */
+.table tbody tr:hover {
+  transform: translateY(-2px);
+  background-color: #09527c;
 }
