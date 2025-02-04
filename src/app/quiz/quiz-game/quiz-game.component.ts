@@ -164,9 +164,9 @@ export class QuizGameComponent implements OnInit, OnDestroy {
               } else {
                 this.endGame();
               }
-            }, 3000);
+            }, 6000);
           }
-        }, 10000);
+        }, 6000);
       },
       error: (error) => {
         console.error('Error submitting attempt:', error);

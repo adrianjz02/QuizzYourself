@@ -60,3 +60,10 @@
   color: #fff; /* Change la couleur du texte au survol */
   background-color: rgba(36, 40, 41, 0.66); /* Changement de fond au survol */
 }
+
+.logo {
+  width: auto;
+  height: 2.5em;
+  margin-right: 10px;
+  margin-left: 10px;
+}

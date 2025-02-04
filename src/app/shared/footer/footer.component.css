@@ -58,3 +58,8 @@
   padding-top: 10px;
   color: #adb5bd; /* Texte gris clair */
 }
+
+.logo {
+  width: auto;
+  height: 4em;
+}

@@ -1,6 +1,7 @@
 <nav class="navbar navbar-expand-lg fixed-top navbar-custom">
   <div class="container-fluid">
-    <a class="navbar-brand text-white" routerLink="/accueil">QuizzYourself</a>
+    <img src="logoQuizzYourself.png" alt="QuizzYourself" class="logo">
+    <a class="navbar-brand text-white" (click)="goToHome()">QuizzYourself</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
             aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -25,7 +26,7 @@
             </ul>
           </li>
           <li class="nav-item ms-3">
-            <a class="nav-link text-white active" aria-current="page" routerLink="/accueil">Accueil</a>
+            <a class="nav-link text-white active" aria-current="page" (click)="goToHome()">Accueil</a>
           </li>
           <li class="nav-item ms-3">
             <a class="nav-link text-white" routerLink="/leaderboard">Leaderboard</a>

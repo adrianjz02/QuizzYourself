@@ -46,4 +46,10 @@ export class HeaderComponent {
     }
   }
 
+  goToHome() {
+    this.router.navigate(['/accueil']).then(() => {
+      window.location.reload();
+    });
+  }
+
 }
