@@ -123,8 +123,6 @@ export class QuizGameComponent implements OnInit, OnDestroy {
     if (!this.currentQuiz || !this.userEmail) return;
 
     const timeSpent = (Date.now() - this.questionStartTime) / 1000;
-    console.log('Time spent answering:', timeSpent);
-
     this.responseTimes.push(timeSpent);
     this.averageResponseTime = this.responseTimes.reduce((a, b) => a + b, 0) / this.responseTimes.length;
 
@@ -144,29 +142,24 @@ export class QuizGameComponent implements OnInit, OnDestroy {
         }
         this.questionsAnswered++;
 
-        if (this.videoPlayer && this.videoPlayer.player) {
-          this.videoPlayer.player.playVideo();
+        if (this.answerOptions) {
+          this.answerOptions.showCorrectAnswer();
         }
 
         setTimeout(() => {
           if (this.videoPlayer && this.videoPlayer.player) {
-            this.videoPlayer.player.pauseVideo();
-            if (this.answerOptions) {
-              this.answerOptions.showCorrectAnswer();
-            }
+            this.videoPlayer.player.playVideo();
 
-            setTimeout(() => {
-              if (this.questionsAnswered < this.totalQuestions) {
-                this.loadNextQuiz();
-                if (this.videoPlayer && this.videoPlayer.player) {
-                  this.videoPlayer.player.playVideo();
+            if (this.questionsAnswered >= this.totalQuestions) {
+              const checkVideoEnd = setInterval(() => {
+                if (this.videoPlayer.player.getPlayerState() === window.YT.PlayerState.ENDED) {
+                  clearInterval(checkVideoEnd);
+                  this.endGame();
                 }
-              } else {
-                this.endGame();
-              }
-            }, 6000);
+              }, 1000);
+            }
           }
-        }, 6000);
+        }, 1500);
       },
       error: (error) => {
         console.error('Error submitting attempt:', error);
