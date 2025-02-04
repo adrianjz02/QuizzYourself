@@ -199,8 +199,63 @@ export function makeServer() {
               ],
               correctAnswer: "Il marque dans un autre panier caché derrière",
               timeLimit: 15
+            },
+            {
+              id: 10,
+              videoUrl: "https://youtu.be/qsqjrcs9V-M?si=JyZdedRP7gLvqPDY",
+              category: "Sport",
+              pauseTimeInSeconds: 6,
+              options: [
+                "Passe en retrait",
+                "Byciclette de Zlatan",
+                "Passe en profondeur",
+                "Interception de l'adversaire"
+              ],
+              correctAnswer: "Byciclette de Zlatan",
+              timeLimit: 15
+            },
+            {
+              id: 11,
+              videoUrl: "https://youtu.be/jKg4eP_l-OE?si=megvQvAST0sTXtNJ",
+              category: "Sport",
+              pauseTimeInSeconds: 4,
+              options: [
+                "Corner rentrant",
+                "But de la tête",
+                "Interception du gardien",
+                "Sortie de balle"
+              ],
+              correctAnswer: "Corner rentrant",
+              timeLimit: 15
+            },
+            {
+              id: 12,
+              videoUrl: "https://youtube.com/shorts/uns9zSeD_Gc?si=cCNO6fdJ4I4YDaR9",
+              category: "Others",
+              pauseTimeInSeconds: 4,
+              options: [
+                "Le gateau explose",
+                "Joyeux anniversaire !",
+                "Un singe vole le gâteau",
+                "Il marche sur le gâteau sans faire exprès"
+              ],
+              correctAnswer: "Un singe vole le gâteau",
+              timeLimit: 15
+            },
+            {
+              id: 13,
+              videoUrl: "https://youtube.com/shorts/aqWHp-5FOms?si=H1I9oNq_wWmwXDri",
+              category: "Others",
+              pauseTimeInSeconds: 4,
+              options: [
+                "Il perd connaissance et va aux urgences",
+                "Sobre, 0 soucis",
+                "Il en reprend un deuxième",
+                "Bourré, il se fait arrêter par la police"
+              ],
+              correctAnswer: "Il perd connaissance et va aux urgences",
+              timeLimit: 15
             }
-
           ],
           quizAttempts: []
         });
