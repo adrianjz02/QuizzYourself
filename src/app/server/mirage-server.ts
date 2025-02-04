@@ -76,9 +76,9 @@ export function makeServer() {
           quizzes: [
             {
               id: 1,
-              videoUrl: "https://youtu.be/uYrglXV55V0?si=eT9yir9HrQ6rhZns",  // Remove &ab_channel=FailArmy
-              category: "Action",
-              pauseTimeInSeconds: 14.5,
+              videoUrl: "https://youtu.be/uYrglXV55V0?si=eT9yir9HrQ6rhZns",
+              category: "VideoGame",
+              pauseTimeInSeconds: 14,
               options: [
                 "L'ours va être bloqué dehors",
                 "Son coéquipier va ouvrir la porte",
@@ -90,9 +90,9 @@ export function makeServer() {
             },
             {
               id: 2,
-              videoUrl: "https://youtu.be/kBpafn7CJrE?si=IeEB6LPJrd6O_Zj_",  // Remove &ab_channel=FailArmy
-              category: "Action",
-              pauseTimeInSeconds: 4.5,
+              videoUrl: "https://youtu.be/kBpafn7CJrE?si=IeEB6LPJrd6O_Zj_",
+              category: "VideoGame",
+              pauseTimeInSeconds: 4,
               options: [
                 "Le lance-roquette va faire exploser la voiture",
                 "Quelqu'un va apparaître devant lui et se faire exploser",
@@ -104,8 +104,8 @@ export function makeServer() {
             },
             {
               id: 3,
-              videoUrl: "https://youtu.be/Ndss-d5VcH0?si=TYDBgaFPautmznzE",  // Remove &ab_channel=FailArmy
-              category: "Action",
+              videoUrl: "https://youtu.be/Ndss-d5VcH0?si=TYDBgaFPautmznzE",
+              category: "VideoGame",
               pauseTimeInSeconds: 4,
               options: [
                 "Le personnage va tomber dans la vide et mourir",
@@ -118,8 +118,8 @@ export function makeServer() {
             },
             {
               id: 4,
-              videoUrl: "https://youtu.be/cca1yq140CI?si=-UJTc-7n5eO2UHrI",  // Remove &ab_channel=FailArmy
-              category: "Action",
+              videoUrl: "https://youtu.be/cca1yq140CI?si=-UJTc-7n5eO2UHrI",
+              category: "VideoGame",
               pauseTimeInSeconds: 7,
               options: [
                 "L'arbre va faire tomber un autre arbre",
@@ -132,8 +132,8 @@ export function makeServer() {
             },
             {
               id: 5,
-              videoUrl: "https://youtu.be/VVG6yMwb4IA?si=8zwfvpJIbzdgMCX4",  // Remove &ab_channel=FailArmy
-              category: "Action",
+              videoUrl: "https://youtu.be/VVG6yMwb4IA?si=8zwfvpJIbzdgMCX4",
+              category: "VideoGame",
               pauseTimeInSeconds: 6,
               options: [
                 "Le train va s'arrêter",
@@ -144,49 +144,63 @@ export function makeServer() {
               correctAnswer: "Le personnage va mourir",
               timeLimit: 15
             },
-            /*,
-            {
-              id: 3,
-              videoUrl: "https://www.youtube.com/watch?v=rPAxrIrw1oU",
-              category: "Sport",
-              pauseTimeInSeconds: 14,
-              options: [
-                "The guy send his ball in a tree",
-                "The guy destroys his little hoop",
-                "The guy scores a basket in another hoop",
-                "The guy makes the ball disappear"
-              ],
-              correctAnswer: "The guy scores a basket in another hoop",
-              timeLimit: 20
-            }*/
             {
               id: 6,
-              videoUrl: "https://www.youtube.com/watch?v=qvC2bVa7UX4&ab_channel=squewe",
-              category: "Animals",
-              pauseTimeInSeconds: 40,
+              videoUrl: "https://www.youtube.com/shorts/bTz_3HW034w",
+              category: "Others",
+              pauseTimeInSeconds: 7,
               options: [
-                "RAT1",
-                "RAT2",
-                "RAT3",
-                "RAT4"
+                "La voiture crève",
+                "Un pigeon géant chie sur la voiture",
+                "La voiture emmène la pompe à essence avec elle",
+                "Les policiers arrêtent cette voiture"
               ],
-              correctAnswer: "RAT2",
+              correctAnswer: "Un pigeon géant chie sur la voiture",
               timeLimit: 15
             },
             {
               id: 7,
-              videoUrl: "https://www.youtube.com/shorts/5Ko9BQ6p7XA",  // Remove &ab_channel=FailArmy
+              videoUrl: "https://www.youtube.com/shorts/5Ko9BQ6p7XA",
               category: "Sport",
-              pauseTimeInSeconds: 5,
+              pauseTimeInSeconds: 4,
               options: [
-                "The character jumps off the cliffAAAAAAAAA",
-                "The character fights the boss",
-                "The character finds a secret door",
-                "The character dies"
+                "LBJ casse les verres",
+                "LBJ jette les verres dans le public",
+                "LBJ redonne les verres à son propriétaire",
+                "LBJ mets les verres sur ses yeux"
               ],
-              correctAnswer: "The character fights the boss",
+              correctAnswer: "LBJ mets les verres sur ses yeux",
+              timeLimit: 15
+            },
+            {
+              id: 8,
+              videoUrl: "https://www.youtube.com/watch?v=7aDixLxFuSA",
+              category: "Sport",
+              pauseTimeInSeconds: 2,
+              options: [
+                "Sterling marque et troue le filet",
+                "Sterling envoie un missile dans les gradins",
+                "Sterling rate la balle",
+                "Sterling essaye de dribbler le gardien"
+              ],
+              correctAnswer: "Sterling envoie un missile dans les gradins",
+              timeLimit: 15
+            },
+            {
+              id: 9,
+              videoUrl: "https://www.youtube.com/shorts/64xjmKWVo0c",
+              category: "Sport",
+              pauseTimeInSeconds: 2,
+              options: [
+                "Il marque dans un autre panier caché derrière",
+                "La balle heurte et blesse un oiseau",
+                "Il se rate et casse son panier",
+                "Il se casse la cheville à l'atterrissage"
+              ],
+              correctAnswer: "Il marque dans un autre panier caché derrière",
               timeLimit: 15
             }
+
           ],
           quizAttempts: []
         });

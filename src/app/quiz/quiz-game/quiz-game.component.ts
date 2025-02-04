@@ -43,6 +43,7 @@ export class QuizGameComponent implements OnInit, OnDestroy {
   private responseTimes: number[] = [];
   private questionStartTime: number = 0;
   private category?: string;
+  showQuestionPrompt = true;
 
   constructor(
     private quizService: QuizService,
@@ -96,6 +97,7 @@ export class QuizGameComponent implements OnInit, OnDestroy {
       this.currentQuiz = this.quizzes[this.questionsAnswered];
       this.isQuestionPhase = false;
       this.showNextButton = false;
+      this.showQuestionPrompt = true;
       if (this.answerOptions) {
         this.answerOptions.resetTimer();
       }
@@ -106,6 +108,7 @@ export class QuizGameComponent implements OnInit, OnDestroy {
 
   onVideoPaused() {
     console.log('Video paused event received');
+    this.showQuestionPrompt = false;
     this.isQuestionPhase = true;
     this.questionStartTime = Date.now();
     console.log('Question phase:', this.isQuestionPhase);

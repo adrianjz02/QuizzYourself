@@ -1,6 +1,9 @@
 <div class="quiz-container">
   @if (!isGameOver && currentQuiz) {
     <div class="quiz-content">
+      @if (showQuestionPrompt) {
+        <div class="question-prompt">What will happen next?</div>
+      }
       <app-video-player
         #videoPlayer
         [videoUrl]="currentQuiz.videoUrl"

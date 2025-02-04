@@ -58,3 +58,10 @@
   padding: 10px 30px;
   font-size: 1.1rem;
 }
+
+.question-prompt {
+  font-size: 1.5rem;
+  color: white;
+  margin: 20px 0;
+  text-align: center;
+}
