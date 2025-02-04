@@ -1,7 +1,7 @@
 // video-player.component.ts
-import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges} from '@angular/core';
-import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
-import {CommonModule} from '@angular/common';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 
 declare global {
   interface Window {
@@ -23,15 +23,13 @@ export class VideoPlayerComponent implements OnInit, OnDestroy, OnChanges {
   @Output() videoPaused = new EventEmitter<void>();
   @Output() videoEnded = new EventEmitter<void>();
 
-  safeVideoUrl: SafeResourceUrl | null = null;
   player: any;
   protected videoId: string = '';
   private isQuestionTime = false;
   private apiLoaded = false;
   private videoStarted = false;
 
-  constructor(private sanitizer: DomSanitizer) {
-  }
+  constructor(private sanitizer: DomSanitizer) {}
 
   ngOnInit() {
     if (this.videoUrl) {
@@ -68,12 +66,12 @@ export class VideoPlayerComponent implements OnInit, OnDestroy, OnChanges {
 
   private getPlayerConfig() {
     return {
-      controls: 0,  // Hide controls
-      disablekb: 1, // Disable keyboard controls
-      fs: 0,        // Disable fullscreen
+      controls: 0,
+      disablekb: 1,
+      fs: 0,
       modestbranding: 1,
       playsinline: 1,
-      rel: 0,       // Don't show related videos
+      rel: 0,
       enablejsapi: 1
     };
   }
@@ -82,13 +80,34 @@ export class VideoPlayerComponent implements OnInit, OnDestroy, OnChanges {
     this.videoId = this.extractVideoId(this.videoUrl);
     console.log('Initializing video with ID:', this.videoId);
 
-    if (this.videoUrl.includes('youtube.com') || this.videoUrl.includes('youtu.be')) {
+    if (this.isYouTubeUrl(this.videoUrl)) {
       if (!window.YT && !this.apiLoaded) {
         this.loadYouTubeAPI();
       } else if (window.YT) {
         this.initializeYouTubePlayer();
       }
     }
+  }
+
+  private isYouTubeUrl(url: string): boolean {
+    return url.includes('youtube.com') ||
+      url.includes('youtu.be') ||
+      url.includes('youtube.com/shorts');
+  }
+
+  private extractVideoId(url: string): string {
+    // Handle YouTube Shorts URLs
+    if (url.includes('/shorts/')) {
+      const shortsMatch = url.match(/\/shorts\/([a-zA-Z0-9_-]+)/);
+      if (shortsMatch && shortsMatch[1]) {
+        return shortsMatch[1];
+      }
+    }
+
+    // Handle standard YouTube URLs
+    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+    const match = url.match(regExp);
+    return (match && match[2].length === 11) ? match[2] : '';
   }
 
   private loadYouTubeAPI() {
@@ -115,7 +134,12 @@ export class VideoPlayerComponent implements OnInit, OnDestroy, OnChanges {
 
       this.player = new window.YT.Player('youtube-player', {
         videoId: this.videoId,
-        playerVars: this.getPlayerConfig(),
+        playerVars: {
+          ...this.getPlayerConfig(),
+          // Add specific settings for Shorts
+          height: '100%',
+          width: '100%'
+        },
         events: {
           onStateChange: (event: any) => this.onPlayerStateChange(event),
           onReady: () => this.onPlayerReady(),
@@ -123,7 +147,6 @@ export class VideoPlayerComponent implements OnInit, OnDestroy, OnChanges {
         }
       });
 
-      // Add click event listener to prevent interaction
       const iframe = document.querySelector('#youtube-player') as HTMLIFrameElement;
       if (iframe) {
         iframe.style.pointerEvents = 'none';
@@ -140,7 +163,6 @@ export class VideoPlayerComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   private onPlayerStateChange(event: any) {
-    // Prevent manual pausing/playing
     if (event.data === window.YT.PlayerState.PAUSED && !this.isQuestionTime) {
       this.player.playVideo();
       return;
@@ -155,7 +177,7 @@ export class VideoPlayerComponent implements OnInit, OnDestroy, OnChanges {
           this.videoPaused.emit();
           clearInterval(checkTime);
         }
-      }, 100); // Check more frequently for better precision
+      }, 100);
     } else if (event.data === window.YT.PlayerState.ENDED) {
       this.videoEnded.emit();
     }
@@ -163,12 +185,5 @@ export class VideoPlayerComponent implements OnInit, OnDestroy, OnChanges {
 
   private onPlayerError(event: any) {
     console.error('YouTube player error:', event);
-    // Handle errors appropriately
-  }
-
-  private extractVideoId(url: string): string {
-    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
-    const match = url.match(regExp);
-    return (match && match[2].length === 11) ? match[2] : '';
   }
 }

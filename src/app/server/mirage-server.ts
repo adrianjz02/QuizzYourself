@@ -80,14 +80,14 @@ export function makeServer() {
               category: "Action",
               pauseTimeInSeconds: 7,
               options: [
-                "The character jumps off the cliff",
+                "The character jumps off the cliffAAAAAAAAA",
                 "The character fights the boss",
                 "The character finds a secret door",
                 "The character dies"
               ],
               correctAnswer: "The character fights the boss",
               timeLimit: 15
-            },
+            }/*,
             {
               id: 3,
               videoUrl: "https://www.youtube.com/watch?v=rPAxrIrw1oU",
@@ -101,7 +101,7 @@ export function makeServer() {
               ],
               correctAnswer: "The guy scores a basket in another hoop",
               timeLimit: 20
-            },
+            }*/,
             {
               id: 2,
               videoUrl: "https://www.youtube.com/watch?v=qvC2bVa7UX4&ab_channel=squewe",
@@ -114,6 +114,20 @@ export function makeServer() {
                 "RAT4"
               ],
               correctAnswer: "RAT2",
+              timeLimit: 15
+            },
+            {
+              id: 4,
+              videoUrl: "https://www.youtube.com/shorts/5Ko9BQ6p7XA",  // Remove &ab_channel=FailArmy
+              category: "Sport",
+              pauseTimeInSeconds: 5,
+              options: [
+                "The character jumps off the cliffAAAAAAAAA",
+                "The character fights the boss",
+                "The character finds a secret door",
+                "The character dies"
+              ],
+              correctAnswer: "The character fights the boss",
               timeLimit: 15
             }
           ],
