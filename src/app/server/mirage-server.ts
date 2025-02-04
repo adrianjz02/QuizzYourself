@@ -433,13 +433,19 @@ export function makeServer() {
         return {averageParties: 0};
       });
 
-      // New quiz routes
+
       this.get("/quizzes", (schema, request) => {
         const category = request.queryParams['category'];
+        let quizzes;
+
         if (category) {
-          return schema.db['quizzes'].filter(quiz => quiz.category === category);
+          quizzes = schema.db['quizzes'].filter(quiz => quiz.category === category);
+        } else {
+          quizzes = schema.db['quizzes'];
         }
-        return schema.db['quizzes'];
+        const shuffled = [...quizzes].sort(() => Math.random() - 0.5);
+
+        return shuffled.slice(0, 3);
       });
 
       this.get("/quiz/:id", (schema, request) => {

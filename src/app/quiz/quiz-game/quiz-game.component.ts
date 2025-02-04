@@ -1,13 +1,13 @@
-import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {Quiz, QuizService, QuizStats} from '../service/services.service';
-import {AuthService} from '../../auth/services/auth.service';
-import {ActivatedRoute, Router} from '@angular/router';
-import {Subject, takeUntil} from 'rxjs';
-import {MatProgressBarModule} from '@angular/material/progress-bar';
-import {CommonModule} from '@angular/common';
-import {VideoPlayerComponent} from '../video-player/video-player.component';
-import {AnswerOptionsComponent} from '../answer-options/answer-options.component';
-import {QuizResultsComponent} from '../quiz-results/quiz-results.component';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Quiz, QuizService, QuizStats } from '../service/services.service';
+import { AuthService } from '../../auth/services/auth.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { CommonModule } from '@angular/common';
+import { VideoPlayerComponent } from '../video-player/video-player.component';
+import { AnswerOptionsComponent } from '../answer-options/answer-options.component';
+import { QuizResultsComponent } from '../quiz-results/quiz-results.component';
 
 @Component({
   selector: 'app-quiz-game',
@@ -46,8 +46,7 @@ export class QuizGameComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private router: Router,
     private route: ActivatedRoute
-  ) {
-  }
+  ) {}
 
   ngOnInit() {
     this.userEmail = this.authService.getUserEmail();
@@ -146,28 +145,20 @@ export class QuizGameComponent implements OnInit, OnDestroy {
           this.answerOptions.showCorrectAnswer();
         }
 
-        setTimeout(() => {
-          if (this.videoPlayer && this.videoPlayer.player) {
-            this.videoPlayer.player.playVideo();
+        if (this.videoPlayer && this.videoPlayer.player) {
+          this.videoPlayer.player.playVideo();
 
-            if (this.questionsAnswered >= this.totalQuestions) {
-              // For last video, wait for it to end then show stats
-              const checkVideoEnd = setInterval(() => {
-                if (this.videoPlayer.player.getPlayerState() === window.YT.PlayerState.ENDED) {
-                  clearInterval(checkVideoEnd);
-                  this.endGame();
-                }
-              }, 1000);
-            } else {
-              // For non-last videos, wait briefly then load next quiz
-              setTimeout(() => {
-                if (this.videoPlayer && this.videoPlayer.player) {
-                  this.loadNextQuiz();
-                }
-              }, 6000);
+          const checkVideoEnd = setInterval(() => {
+            if (this.videoPlayer.player.getPlayerState() === window.YT.PlayerState.ENDED) {
+              clearInterval(checkVideoEnd);
+              if (this.questionsAnswered < this.totalQuestions) {
+                this.loadNextQuiz();
+              } else {
+                this.endGame();
+              }
             }
-          }
-        }, 1500);
+          }, 1000);
+        }
       },
       error: (error) => {
         console.error('Error submitting attempt:', error);
