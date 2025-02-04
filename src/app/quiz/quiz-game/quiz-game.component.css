@@ -52,3 +52,9 @@
   margin-top: 5px;
   color: white;
 }
+
+.next-button {
+  margin: 20px auto;
+  padding: 10px 30px;
+  font-size: 1.1rem;
+}

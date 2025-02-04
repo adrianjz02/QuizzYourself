@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { VideoPlayerComponent } from '../video-player/video-player.component';
 import { AnswerOptionsComponent } from '../answer-options/answer-options.component';
 import { QuizResultsComponent } from '../quiz-results/quiz-results.component';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-quiz-game',
@@ -19,7 +20,8 @@ import { QuizResultsComponent } from '../quiz-results/quiz-results.component';
     MatProgressBarModule,
     VideoPlayerComponent,
     AnswerOptionsComponent,
-    QuizResultsComponent
+    QuizResultsComponent,
+    MatButtonModule
   ]
 })
 export class QuizGameComponent implements OnInit, OnDestroy {
@@ -33,6 +35,7 @@ export class QuizGameComponent implements OnInit, OnDestroy {
   isQuestionPhase = false;
   isGameOver = false;
   averageResponseTime = 0;
+  showNextButton = false;
   totalResponseTime = 0;
   private destroy$ = new Subject<void>();
   private userEmail: string | null = null;
@@ -88,10 +91,11 @@ export class QuizGameComponent implements OnInit, OnDestroy {
     });
   }
 
-  private loadNextQuiz() {
+  public loadNextQuiz() {
     if (this.quizzes.length > this.questionsAnswered) {
       this.currentQuiz = this.quizzes[this.questionsAnswered];
       this.isQuestionPhase = false;
+      this.showNextButton = false;
       if (this.answerOptions) {
         this.answerOptions.resetTimer();
       }
@@ -110,11 +114,7 @@ export class QuizGameComponent implements OnInit, OnDestroy {
   onVideoEnded() {
     console.log('Video ended');
     if (!this.isGameOver) {
-      if (this.questionsAnswered < this.totalQuestions) {
-        this.loadNextQuiz();
-      } else {
-        this.endGame();
-      }
+      this.showNextButton = true;
     }
   }
 
@@ -147,15 +147,11 @@ export class QuizGameComponent implements OnInit, OnDestroy {
 
         if (this.videoPlayer && this.videoPlayer.player) {
           this.videoPlayer.player.playVideo();
-
+          // Add check for video end
           const checkVideoEnd = setInterval(() => {
             if (this.videoPlayer.player.getPlayerState() === window.YT.PlayerState.ENDED) {
               clearInterval(checkVideoEnd);
-              if (this.questionsAnswered < this.totalQuestions) {
-                this.loadNextQuiz();
-              } else {
-                this.endGame();
-              }
+              this.showNextButton = true;
             }
           }, 1000);
         }
@@ -171,7 +167,6 @@ export class QuizGameComponent implements OnInit, OnDestroy {
       const timeSpent = this.currentQuiz.timeLimit + this.currentQuiz.pauseTimeInSeconds;
       this.responseTimes.push(timeSpent);
       this.averageResponseTime = this.responseTimes.reduce((a, b) => a + b, 0) / this.responseTimes.length;
-
       this.onAnswerSelected(-1);
     }
   }

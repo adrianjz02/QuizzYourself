@@ -22,6 +22,12 @@
         ></app-answer-options>
       </div>
 
+      @if (showNextButton) {
+        <button mat-raised-button color="primary" (click)="loadNextQuiz()" class="next-button">
+          Next Question
+        </button>
+      }
+
       <div class="quiz-progress">
         <mat-progress-bar
           mode="determinate"
