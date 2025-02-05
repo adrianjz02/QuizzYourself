@@ -67,20 +67,8 @@ export class QuizService {
     return this.http.get<QuizStats>(`${this.apiUrl}/quiz-stats?email=${email}`);
   }
 
-  setCurrentQuiz(quiz: Quiz) {
-    this.currentQuizSubject.next(quiz);
-  }
-
-  getCurrentQuiz(): Observable<Quiz | null> {
-    return this.currentQuizSubject.asObservable();
-  }
-
   updateQuizStats(stats: QuizStats) {
     this.quizStatsSubject.next(stats);
-  }
-
-  getQuizStatsAsObservable(): Observable<QuizStats | null> {
-    return this.quizStatsSubject.asObservable();
   }
 
   updateGameResults(email: string | null, stats: QuizStats): Observable<any> {

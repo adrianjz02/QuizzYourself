@@ -59,6 +59,11 @@
   font-size: 1.1rem;
 }
 
+.next-button:hover {
+  background-color: #1976d2;
+  color: white;
+}
+
 .question-prompt {
   font-size: 1.5rem;
   color: white;
