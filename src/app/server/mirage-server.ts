@@ -61,12 +61,12 @@ export function makeServer() {
             {email: 'ay@ca.com', bonnesReponses: 72, totalReponses: 90},
           ],
           evolution_scores: [
-            {partieId: 1, email: 'ad@jz.com', score: 0, datePartie: '2025-01-01', tempsMoyenReponse: 1750},
-            {partieId: 2, email: 'ad@jz.com', score: 0, datePartie: '2025-01-02', tempsMoyenReponse: 1850},
-            {partieId: 3, email: 'ad@jz.com', score: 10, datePartie: '2025-01-03', tempsMoyenReponse: 1850},
-            {partieId: 4, email: 'ay@ca.com', score: 0, datePartie: '2025-01-01', tempsMoyenReponse: 1750},
-            {partieId: 5, email: 'ay@ca.com', score: 0, datePartie: '2025-01-02', tempsMoyenReponse: 1850},
-            {partieId: 6, email: 'ay@ca.com', score: 0, datePartie: '2025-01-03', tempsMoyenReponse: 1850},
+            {partieId: 1, email: 'ad@jz.com', score: 0, datePartie: '2025-01-01 11:10', tempsMoyenReponse: 1750},
+            {partieId: 2, email: 'ad@jz.com', score: 0, datePartie: '2025-01-02 13:20', tempsMoyenReponse: 1850},
+            {partieId: 3, email: 'ad@jz.com', score: 10, datePartie: '2025-01-03 15:10', tempsMoyenReponse: 1850},
+            {partieId: 4, email: 'ay@ca.com', score: 0, datePartie: '2025-01-01 12:40', tempsMoyenReponse: 1750},
+            {partieId: 5, email: 'ay@ca.com', score: 0, datePartie: '2025-01-02 17:50', tempsMoyenReponse: 1850},
+            {partieId: 6, email: 'ay@ca.com', score: 0, datePartie: '2025-01-03 13:40', tempsMoyenReponse: 1850},
           ],
           totalScore: [],
           temps_reponse: [
@@ -271,19 +271,6 @@ export function makeServer() {
         const existingUser = schema.db['users'].findBy({email: userData.email});
         if (existingUser) {
           return new Response(400, {}, {error: 'Cet email est déjà utilisé.'});
-        }
-
-        const defaultLeaderboardData = {
-          userId: userData.email,
-          totalScore: 0,
-          rank: null,
-          playTime: 0,
-          victories: 0,
-        };
-
-        const defaultAchievementsData = {
-          userId: userData.email,
-          achievements: [],
         }
 
         schema.db['users'].insert(userData);

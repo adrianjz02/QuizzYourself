@@ -87,7 +87,7 @@ export class StatsPartiesJoueesComponent {
       },
       {
         data: [0],
-        label: 'Moyenne Parties',
+        label: 'Moyenne Parties Global',
         backgroundColor: 'rgba(255,99,132,0.6)',
       },
     ],
