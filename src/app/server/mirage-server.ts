@@ -366,23 +366,26 @@ export function makeServer() {
         let email = request.params['email'];
 
         // Récupérer les données de l'utilisateur
-        let user = schema.db['users'].findBy({email});
-        let partiesJouees = schema.db['parties_jouees'].findBy({email});
-        let tauxReussite = schema.db['taux_reussite'].findBy({email});
-        let totalScore = schema.db['totalScore'].findBy({email});
-        let tempsReponse = schema.db['temps_reponse'].findBy({email});
+        let user = schema.db['users'].findBy({ email });
+        let partiesJouees = schema.db['parties_jouees'].findBy({ email });
+        let tauxReussite = schema.db['taux_reussite'].findBy({ email });
+        // On ne récupère plus totalScore depuis la db
+        let tempsReponse = schema.db['temps_reponse'].findBy({ email });
         let evolutionScores = schema.db['evolution_scores'].filter(score => score.email === email);
 
+        // Calculer la somme des scores à partir de evolutionScores
+        let totalScore = evolutionScores.reduce((acc, current) => acc + current.score, 0);
+
         if (!user) {
-          return new Response(404, {}, {error: "Utilisateur non trouvé"});
+          return new Response(404, {}, { error: "Utilisateur non trouvé" });
         }
 
         return {
           user,
-          partiesJouees: partiesJouees || {totalParties: 0},
-          tauxReussite: tauxReussite || {bonnesReponses: 0, totalReponses: 0},
-          totalScore: totalScore || {totalScore: 0},
-          tempsReponse: tempsReponse || {tempsMoyenMs: 0},
+          partiesJouees: partiesJouees || { totalParties: 0 },
+          tauxReussite: tauxReussite || { bonnesReponses: 0, totalReponses: 0 },
+          totalScore: { totalScore }, // on renvoie l'objet avec la somme calculée
+          tempsReponse: tempsReponse || { tempsMoyenMs: 0 },
           evolutionScores
         };
       });
