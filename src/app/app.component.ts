@@ -18,9 +18,11 @@ export class AppComponent {
   }
 
   ngAfterViewInit() {
-    const header = this.elementRef.nativeElement.querySelector('.navbar');
-    if (header) {
-      this.headerHeight = header.offsetHeight;
-    }
+    setTimeout(() => {
+      const header = this.elementRef.nativeElement.querySelector('.navbar');
+      if (header) {
+        this.headerHeight = header.offsetHeight;
+      }
+    });
   }
 }

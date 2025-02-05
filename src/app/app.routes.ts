@@ -3,12 +3,9 @@ import {AccueilComponent} from './accueil/accueil.component';
 import {AuthComponent} from './auth/auth.component';
 import {LoginComponent} from './auth/login/login.component';
 import {SignupComponent} from './auth/signup/signup.component';
-import {CommunityComponent} from './community/community.component';
-import {ProposeClipComponent} from './community/propose-clip/propose-clip.component';
 import {LeaderboardComponent} from './leaderboard/leaderboard.component';
 import {QuizComponent} from './quiz/quiz.component';
 import {QuizGameComponent} from './quiz/quiz-game/quiz-game.component';
-import {TestFrameworkComponent} from './test-framework/test-framework.component';
 import {ProfileComponent} from './user/profile/profile.component';
 import {DashboardComponent} from './user/dashboard/dashboard.component';
 
@@ -19,13 +16,6 @@ export const routes: Routes = [
     children: [
       {path: 'login', component: LoginComponent},
       {path: 'signup', component: SignupComponent}
-    ]
-  },
-  {
-    path: 'community',
-    component: CommunityComponent,
-    children: [
-      {path: 'propose-clip', component: ProposeClipComponent},
     ]
   },
   {
@@ -43,7 +33,6 @@ export const routes: Routes = [
   },
   {path: 'profile', component: ProfileComponent},
   {path: 'dashboard', component: DashboardComponent},
-  {path: 'test', component: TestFrameworkComponent},
   {path: '', redirectTo: '/accueil', pathMatch: 'full'}, // Redirection vers /accueil pour URL vide
   {path: '**', component: AccueilComponent} // Redirection des URL inconnues
 ];

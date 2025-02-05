@@ -96,7 +96,7 @@ export function makeServer() {
               options: [
                 "Le lance-roquette va faire exploser la voiture",
                 "Quelqu'un va apparaître devant lui et se faire exploser",
-                "Le personne va rater son tire",
+                "La personne va rater son tir",
                 "Il va se faire écraser par la voiture"
               ],
               correctAnswer: "Quelqu'un va apparaître devant lui et se faire exploser",
@@ -188,7 +188,7 @@ export function makeServer() {
             },
             {
               id: 9,
-              videoUrl: "https://www.youtube.com/shorts/64xjmKWVo0c",
+              videoUrl: "https://youtube.com/shorts/US5FvlyjQFw?si=B6yzyaFatDMLe1VU",
               category: "Sport",
               pauseTimeInSeconds: 2,
               options: [
@@ -207,11 +207,11 @@ export function makeServer() {
               pauseTimeInSeconds: 6,
               options: [
                 "Passe en retrait",
-                "Byciclette de Zlatan",
+                "Byciclette rentrante de Zlatan",
                 "Passe en profondeur",
                 "Interception de l'adversaire"
               ],
-              correctAnswer: "Byciclette de Zlatan",
+              correctAnswer: "Byciclette rentrante de Zlatan",
               timeLimit: 15
             },
             {
@@ -235,7 +235,7 @@ export function makeServer() {
               pauseTimeInSeconds: 4,
               options: [
                 "Le gateau explose",
-                "Joyeux anniversaire !",
+                "Essaye de croquer le gateau mais c'est un caillou",
                 "Un singe vole le gâteau",
                 "Il marche sur le gâteau sans faire exprès"
               ],
@@ -248,12 +248,12 @@ export function makeServer() {
               category: "Others",
               pauseTimeInSeconds: 4,
               options: [
-                "Il perd connaissance et va aux urgences",
+                "Il tape un gros dodo et va aux urgences",
                 "Sobre, 0 soucis",
                 "Il en reprend un deuxième",
                 "Bourré, il se fait arrêter par la police"
               ],
-              correctAnswer: "Il perd connaissance et va aux urgences",
+              correctAnswer: "Il tape un gros dodo et va aux urgences",
               timeLimit: 15
             }
           ],
@@ -428,7 +428,7 @@ export function makeServer() {
         return new Response(404, {}, {error: "Utilisateur non trouvé"});
       });
 
-      // 🚀 Requête Mirage pour initialiser totalScore dynamiquement
+      // Requête Mirage pour initialiser totalScore dynamiquement
       this.post('/init-total-score', (schema) => {
         let scores = schema.db['evolution_scores'] as { email: string; score: number }[];
 
