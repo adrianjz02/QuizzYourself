@@ -8,6 +8,7 @@ import {QuizComponent} from './quiz/quiz.component';
 import {QuizGameComponent} from './quiz/quiz-game/quiz-game.component';
 import {ProfileComponent} from './user/profile/profile.component';
 import {DashboardComponent} from './user/dashboard/dashboard.component';
+import {AuthGuard} from './auth.guard';
 
 export const routes: Routes = [
   {
@@ -31,7 +32,7 @@ export const routes: Routes = [
       {path: 'quiz-main/:category', component: QuizGameComponent}, // New route with category parameter
     ]
   },
-  {path: 'profile', component: ProfileComponent},
+  {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
   {path: 'dashboard', component: DashboardComponent},
   {path: '', redirectTo: '/accueil', pathMatch: 'full'}, // Redirection vers /accueil pour URL vide
   {path: '**', component: AccueilComponent} // Redirection des URL inconnues
