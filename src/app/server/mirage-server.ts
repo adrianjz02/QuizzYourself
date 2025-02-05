@@ -190,7 +190,7 @@ export function makeServer() {
               id: 9,
               videoUrl: "https://youtube.com/shorts/US5FvlyjQFw?si=B6yzyaFatDMLe1VU",
               category: "Sport",
-              pauseTimeInSeconds: 2,
+              pauseTimeInSeconds: 1,
               options: [
                 "Il marque dans un autre panier caché derrière",
                 "La balle heurte et blesse un oiseau",
